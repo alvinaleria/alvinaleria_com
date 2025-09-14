@@ -78,12 +78,15 @@ const Preview = () => {
   const cycleCount = useRef(0);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
+  
   const resetScroll = () => {
     if (containerRef.current) {
       const middleIndex = Math.floor(pages.length / 3);
-      containerRef.current.scrollTop = window.innerHeight * middleIndex;
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      containerRef.current.scrollTop = viewportHeight * middleIndex;
     }
   };
+
 
   const reshufflePages = (reset: boolean = true) => {
     setPages(generatePages(cycleCount.current));
@@ -102,35 +105,48 @@ const Preview = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
-      if (scrollTimeout.current) return;
+    
+  const handleScroll = () => {
+    if (scrollTimeout.current) return;
 
-      scrollTimeout.current = setTimeout(() => {
-        const scrollTop = container.scrollTop;
-        const pageHeight = window.innerHeight;
-        const currentIndex = Math.round(scrollTop / pageHeight);
+    scrollTimeout.current = setTimeout(() => {
+      const scrollTop = container.scrollTop;
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const currentIndex = Math.round(scrollTop / viewportHeight);
 
-        const totalPages = pages.length;
-        const baseLength = totalPages / 3;
+      const totalPages = pages.length;
+      const baseLength = totalPages / 3;
 
-        const isNearStart = currentIndex <= 1;
-        const isNearEnd = currentIndex >= totalPages - 2;
+      const isNearStart = currentIndex <= 1;
+      const isNearEnd = currentIndex >= totalPages - 2;
 
-        if (isNearStart || isNearEnd) {
-          const offset = pageHeight * baseLength;
-          container.scrollTop = isNearStart
-            ? scrollTop + offset
-            : scrollTop - offset;
+      if (isNearStart || isNearEnd) {
+        const offset = viewportHeight * baseLength;
+        container.scrollTop = isNearStart
+          ? scrollTop + offset
+          : scrollTop - offset;
 
-          cycleCount.current += 1;
-          reshufflePages(false);
-        }
+        cycleCount.current += 1;
+        reshufflePages(false);
+      }
 
-        scrollTimeout.current = null;
-      }, 100);
+      scrollTimeout.current = null;
+    }, 100);
+  };
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      resetScroll();
     };
 
-    container.addEventListener("scroll", handleScroll);
+    window.visualViewport?.addEventListener("resize", handleResize);
+    return () => {
+      window.visualViewport?.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [pages]);
 
