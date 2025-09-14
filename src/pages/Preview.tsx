@@ -1,7 +1,7 @@
-import { useRef, useEffect, useState } from "react";
-import  FingerPrintBackground from '../layout/FingerPrintBackground';
-import  IntroContent from '../layout/IntroContent';
-import  WorksContent from '../layout/WorksContent';
+import { useRef, useLayoutEffect, useEffect, useState } from "react";
+import FingerPrintBackground from "../layout/FingerPrintBackground";
+import IntroContent from "../layout/IntroContent";
+import WorksContent from "../layout/WorksContent";
 
 const extraItems = [
   "Bonus Tip: Stay hydrated!",
@@ -24,10 +24,10 @@ const rotateExtras = (cycle: number) => {
 
 const generatePages = (cycle: number) => {
   const rotatedExtras = rotateExtras(cycle);
-  
+
   const basePages = [
     { id: 1, color: "bg-red-500", content: "intro", background: "finger" },
-    { id: 2, color: "bg-black", content: "works" }, // no background
+    { id: 2, color: "bg-black", content: "works" },
     { id: 3, color: "bg-green-500", content: "Page 3", extra: rotatedExtras[0], background: "swirl" },
     { id: 4, color: "bg-yellow-300", content: "Page 4", background: "waves" },
     { id: 5, color: "bg-purple-500", content: "Page 5", extra: rotatedExtras[1] },
@@ -47,10 +47,6 @@ const getBackgroundComponent = (type: string) => {
   switch (type) {
     case "finger":
       return <FingerPrintBackground />;
-    case "swirl":
-      return null;
-    case "waves":
-      return null;
     default:
       return null;
   }
@@ -80,6 +76,7 @@ const Preview = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState<Page[]>([]);
   const cycleCount = useRef(0);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const resetScroll = () => {
     if (containerRef.current) {
@@ -90,10 +87,14 @@ const Preview = () => {
 
   const reshufflePages = (reset: boolean = true) => {
     setPages(generatePages(cycleCount.current));
-    if (reset) setTimeout(resetScroll, 0);
+    if (reset) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(resetScroll);
+      });
+    }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     reshufflePages(true);
   }, []);
 
@@ -102,21 +103,27 @@ const Preview = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      const scrollTop = container.scrollTop;
-      const pageHeight = window.innerHeight;
-      const currentIndex = Math.round(scrollTop / pageHeight);
+      if (scrollTimeout.current) return;
 
-      const isNearTop = currentIndex <= 1;
-      const isNearBottom = currentIndex >= pages.length - 2;
+      scrollTimeout.current = setTimeout(() => {
+        const scrollTop = container.scrollTop;
+        const pageHeight = window.innerHeight;
+        const currentIndex = Math.round(scrollTop / pageHeight);
 
-      if (isNearTop || isNearBottom) {
-        container.scrollTop = isNearTop
-          ? scrollTop + pageHeight * 8
-          : scrollTop - pageHeight * 8;
+        const isNearTop = currentIndex <= 1;
+        const isNearBottom = currentIndex >= pages.length - 2;
 
-        cycleCount.current += 1;
-        reshufflePages(false);
-      }
+        if (isNearTop || isNearBottom) {
+          container.scrollTop = isNearTop
+            ? scrollTop + pageHeight * 8
+            : scrollTop - pageHeight * 8;
+
+          cycleCount.current += 1;
+          reshufflePages(false);
+        }
+
+        scrollTimeout.current = null;
+      }, 100);
     };
 
     container.addEventListener("scroll", handleScroll);
@@ -130,12 +137,10 @@ const Preview = () => {
           key={page.key}
           className={`relative h-screen w-full flex flex-col items-center justify-center text-white text-4xl ${page.color}`}
         >
-          {/* Background goes behind */}
           <div className="absolute inset-0 z-0 pointer-events-none select-none">
             {getBackgroundComponent(page.background ?? "")}
           </div>
 
-          {/* Foreground content */}
           {getContentComponent(page.content)}
           <div className="absolute z-10">{page.content}</div>
           {page.extra && (
