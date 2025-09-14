@@ -1,6 +1,6 @@
 import { List, Datagrid, TextField, FunctionField, ReferenceField, EditButton, ReferenceInput, AutocompleteInput, DeleteButton, Create, SimpleForm, TextInput, FileInput, FileField, ImageInput, ImageField, Edit } from 'react-admin';
 
-const CreativeList = (props) => (
+export const CreativeList = (props) => (
   <List {...props}>
     <Datagrid>
       <TextField source="id" />
@@ -18,7 +18,7 @@ const CreativeList = (props) => (
 );
 
 
-const CreativeCreate = (props) => (
+export const CreativeCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
       <ReferenceInput source="campaignId" reference="campaigns">
@@ -38,7 +38,7 @@ const CreativeCreate = (props) => (
 );
 
 
-const CreativeEdit = (props) => (
+export const CreativeEdit = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <ReferenceInput label="Campaign" source="campaignId" reference="campaigns">
@@ -56,10 +56,3 @@ const CreativeEdit = (props) => (
     </SimpleForm>
   </Edit>
 );
-
-
-export default {
-  list : CreativeList,
-  create : CreativeCreate,
-  edit : CreativeEdit,
-};
