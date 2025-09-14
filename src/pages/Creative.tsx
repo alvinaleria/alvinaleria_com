@@ -56,3 +56,6 @@ export const CreativeEdit = (props) => (
     </SimpleForm>
   </Edit>
 );
+
+const CreativePage = () => null;
+export default CreativePage;
