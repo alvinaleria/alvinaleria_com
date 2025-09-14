@@ -67,6 +67,15 @@ const getContentComponent = (type: string) => {
   }
 };
 
+type Page = {
+  key: string;
+  id: number;
+  color: string;
+  content: string;
+  background?: string;
+  extra?: string;
+};
+
 const Preview = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState([]);
