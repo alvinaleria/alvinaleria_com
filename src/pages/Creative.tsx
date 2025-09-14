@@ -59,7 +59,7 @@ const CreativeEdit = (props) => (
 
 
 export default {
-  List: CreativeList,
-  Create: CreativeCreate,
-  Edit: CreativeEdit,
+  list : CreativeList,
+  create : CreativeCreate,
+  edit : CreativeEdit,
 };

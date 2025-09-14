@@ -37,8 +37,8 @@ const CampaignEdit = (props) => (
 );
 
 export default {
-  List: CampaignList,
-  Create: CampaignCreate,
-  Edit: CampaignEdit,
+  list : CampaignList,
+  create : CampaignCreate,
+  campaign : CampaignEdit,
 };
 

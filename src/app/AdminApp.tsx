@@ -4,8 +4,8 @@ import { Route } from "react-router";
 //Utility
 import DataProvider from "../utils/DataProvider";
 
-import { CampaignList, CampaignCreate, CampaignEdit } from '../pages/Campaign';
-import { CreativeList, CreativeCreate, CreativeEdit } from '../pages/Creative';
+import Campaign from '../pages/Campaign';
+import Creative from '../pages/Creative';
 import Preview from '../pages/Preview';
 import Test from '../pages/Test';
 
@@ -15,8 +15,8 @@ const AdminApp = () => (
       <Route path="/preview" element={<Preview />} />
       <Route path="/test" element={<Test />} />
     </CustomRoutes>
-    <Resource name="campaigns" list={CampaignList} create={CampaignCreate} edit={CampaignEdit} recordRepresentation="name" />
-    <Resource name="creatives" list={CreativeList} create={CreativeCreate} edit={CreativeEdit} recordRepresentation="name" />
+    <Resource name="campaigns" {...Campaign} recordRepresentation="name" />
+    <Resource name="creatives" {...Creative} recordRepresentation="name" />
   </Admin>
 );
 
