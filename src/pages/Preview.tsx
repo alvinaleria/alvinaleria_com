@@ -11,7 +11,7 @@ const extraItems = [
   "Fun Fact: Bananas are berries, but strawberries aren't.",
 ];
 
-const rotateExtras = (cycle) => {
+const rotateExtras = (cycle: number) => {
   const rotated = [...extraItems];
   for (let i = 0; i < cycle; i++) {
     rotated.push(rotated.shift()); // rotate left
@@ -19,7 +19,7 @@ const rotateExtras = (cycle) => {
   return rotated;
 };
 
-const generatePages = (cycle) => {
+const generatePages = (cycle: number) => {
   const rotatedExtras = rotateExtras(cycle);
   
   const basePages = [
@@ -41,7 +41,7 @@ const generatePages = (cycle) => {
 };
 
 
-const getBackgroundComponent = (type) => {
+const getBackgroundComponent = (type: string) => {
   switch (type) {
     case "finger":
       return <FingerPrintBackground />;
@@ -54,7 +54,7 @@ const getBackgroundComponent = (type) => {
   }
 };
 
-const getContentComponent = (type) => {
+const getContentComponent = (type: string) => {
   switch (type) {
     case "intro":
       return <IntroContent />;
@@ -77,7 +77,7 @@ const Preview = () => {
     }
   };
 
-  const reshufflePages = (reset = true) => {
+  const reshufflePages = (reset: boolean = true) => {
     setPages(generatePages(cycleCount.current));
     if (reset) setTimeout(resetScroll, 0);
   };
