@@ -76,8 +76,7 @@ const Preview = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState<Page[]>([]);
   const cycleCount = useRef(0);
-  const lastScrollTime = useRef(0);
-  const isThrottled = useRef(false);
+  const lastReshuffleIndex = useRef<number | null>(null);
 
   const getViewportHeight = () => {
     return window.visualViewport?.height || window.innerHeight;
@@ -96,32 +95,21 @@ const Preview = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      if (isThrottled.current) return;
+      const scrollTop = container.scrollTop;
+      const viewportHeight = getViewportHeight();
+      const currentIndex = Math.round(scrollTop / viewportHeight);
 
-      isThrottled.current = true;
-      requestAnimationFrame(() => {
-        const scrollTop = container.scrollTop;
-        const viewportHeight = getViewportHeight();
-        const currentIndex = Math.round(scrollTop / viewportHeight);
+      const totalPages = pages.length;
+      const baseLength = totalPages / 3;
 
-        const totalPages = pages.length;
-        const baseLength = totalPages / 3;
+      const isNearStart = currentIndex === 0;
+      const isNearEnd = currentIndex === totalPages - 1;
 
-        const isNearStart = currentIndex <= 1;
-        const isNearEnd = currentIndex >= totalPages - 2;
-
-        if (isNearStart || isNearEnd) {
-          const offset = viewportHeight * baseLength;
-          container.scrollTop = isNearStart
-            ? scrollTop + offset
-            : scrollTop - offset;
-
-          cycleCount.current += 1;
-          reshufflePages();
-        }
-
-        isThrottled.current = false;
-      });
+      if ((isNearStart || isNearEnd) && lastReshuffleIndex.current !== currentIndex) {
+        cycleCount.current += 1;
+        reshufflePages();
+        lastReshuffleIndex.current = currentIndex;
+      }
     };
 
     container.addEventListener("scroll", handleScroll);
