@@ -78,15 +78,16 @@ const Preview = () => {
   const cycleCount = useRef(0);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  
   const resetScroll = () => {
     if (containerRef.current) {
       const middleIndex = Math.floor(pages.length / 3);
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
-      containerRef.current.scrollTop = viewportHeight * middleIndex;
+      containerRef.current.scrollTo({
+        top: viewportHeight * middleIndex,
+        behavior: "auto",
+      });
     }
   };
-
 
   const reshufflePages = (reset: boolean = true) => {
     setPages(generatePages(cycleCount.current));
@@ -105,37 +106,35 @@ const Preview = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    
-  const handleScroll = () => {
-    if (scrollTimeout.current) return;
+    const handleScroll = () => {
+      if (scrollTimeout.current) return;
 
-    scrollTimeout.current = setTimeout(() => {
-      const scrollTop = container.scrollTop;
-      const viewportHeight = window.visualViewport?.height || window.innerHeight;
-      
-      const currentIndex = Math.round(scrollTop / viewportHeight);
+      scrollTimeout.current = setTimeout(() => {
+        const scrollTop = container.scrollTop;
+        const viewportHeight = window.visualViewport?.height || window.innerHeight;
+        const currentIndex = Math.round(scrollTop / viewportHeight);
 
-      const totalPages = pages.length;
-      const baseLength = totalPages / 3;
+        const totalPages = pages.length;
+        const baseLength = totalPages / 3;
 
-      const isNearStart = currentIndex <= 1;
-      const isNearEnd = currentIndex >= totalPages - 2;
+        const isNearStart = currentIndex <= 1;
+        const isNearEnd = currentIndex >= totalPages - 2;
 
-      if (isNearStart || isNearEnd) {
-        const offset = viewportHeight * baseLength;
-        container.scrollTop = isNearStart
-          ? scrollTop + offset
-          : scrollTop - offset;
+        if (isNearStart || isNearEnd) {
+          const offset = viewportHeight * baseLength;
+          container.scrollTop = isNearStart
+            ? scrollTop + offset
+            : scrollTop - offset;
 
-        cycleCount.current += 1;
-        reshufflePages(false);
-      }
+          cycleCount.current += 1;
+          reshufflePages(false);
+        }
 
-      scrollTimeout.current = null;
-    }, 100);
-  };
+        scrollTimeout.current = null;
+      }, 100);
+    };
 
-  container.addEventListener("scroll", handleScroll);
+    container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [pages]);
 
@@ -151,11 +150,11 @@ const Preview = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="[height:100dvh] overflow-y-scroll overflow-y-scroll">
+    <div ref={containerRef} className="h-screen overflow-y-scroll">
       {pages.map((page) => (
         <div
           key={page.key}
-          className={`relative [height:100dvh] overflow-y-scroll w-full flex flex-col items-center justify-center text-white text-4xl ${page.color}`}
+          className={`relative h-screen w-full flex flex-col items-center justify-center text-white text-4xl ${page.color}`}
         >
           <div className="absolute inset-0 z-0 pointer-events-none select-none">
             {getBackgroundComponent(page.background ?? "")}
