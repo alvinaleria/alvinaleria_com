@@ -134,6 +134,9 @@ const Preview = () => {
     }, 100);
   };
 
+  container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [pages]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -145,10 +148,6 @@ const Preview = () => {
       window.visualViewport?.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, [pages]);
 
   return (
     <div ref={containerRef} className="h-screen overflow-y-scroll">
