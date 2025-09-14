@@ -1,16 +1,20 @@
 
 import { useRef, useEffect, useState } from "react"
-import { Arvo } from "next/font/google";
 
-const argo = Arvo({
-  weight: '400', // adjust as needed
-  variable: '--font-arvo',
-});
+const extraItems = [
+  "BANNER ADS ",
+  "LANDING PAGES",
+  "EMAIL TEMPLATES ",
+  "CUSTOM BUILT WEBSITES",
+  "INTERACTIVE EXPERIENCES ",
+  "MOTION GRAPHICS ",
+  "GRAPHIC DESIGN ",
+];
 
 const WorksContent = () => {
   return (
-    <div className="w-full h-screen flex flex-row relative z-10">
-      <div className="font-arvo">
+    <div className="font-arvo w-full h-screen flex flex-row relative z-10">
+      <div>
         This text uses the Argo font.
       </div>
     </div>

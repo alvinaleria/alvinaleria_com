@@ -83,7 +83,8 @@ const Preview = () => {
 
   const resetScroll = () => {
     if (containerRef.current) {
-      containerRef.current.scrollTop = window.innerHeight * 8;
+      const middleIndex = Math.floor(pages.length / 3);
+      containerRef.current.scrollTop = window.innerHeight * middleIndex;
     }
   };
 
