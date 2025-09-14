@@ -77,35 +77,17 @@ const Preview = () => {
   const [pages, setPages] = useState<Page[]>([]);
   const cycleCount = useRef(0);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
-  const hasInitialized = useRef(false);
 
   const getViewportHeight = () => {
     return window.visualViewport?.height || window.innerHeight;
   };
 
-  const resetScroll = () => {
-    if (containerRef.current) {
-      const middleIndex = Math.floor(pages.length / 3);
-      const viewportHeight = getViewportHeight();
-      containerRef.current.scrollTo({
-        top: viewportHeight * middleIndex,
-        behavior: "auto",
-      });
-    }
-  };
-
-  const reshufflePages = (reset: boolean = true) => {
+  const reshufflePages = () => {
     setPages(generatePages(cycleCount.current));
-    if (reset) {
-      setTimeout(() => {
-        resetScroll();
-        hasInitialized.current = true;
-      }, 150); // longer delay to allow layout stabilization
-    }
   };
 
   useLayoutEffect(() => {
-    reshufflePages(true);
+    reshufflePages();
   }, []);
 
   useEffect(() => {
@@ -113,27 +95,16 @@ const Preview = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      if (!hasInitialized.current || scrollTimeout.current) return;
+      if (scrollTimeout.current) return;
 
       scrollTimeout.current = setTimeout(() => {
         const scrollTop = container.scrollTop;
         const viewportHeight = getViewportHeight();
         const currentIndex = Math.round(scrollTop / viewportHeight);
 
-        const totalPages = pages.length;
-        const baseLength = totalPages / 3;
-
-        const isNearStart = currentIndex <= 1;
-        const isNearEnd = currentIndex >= totalPages - 2;
-
-        if (isNearStart || isNearEnd) {
-          const offset = viewportHeight * baseLength;
-          container.scrollTop = isNearStart
-            ? scrollTop + offset
-            : scrollTop - offset;
-
+        if (currentIndex === 7) {
           cycleCount.current += 1;
-          reshufflePages(false);
+          reshufflePages();
         }
 
         scrollTimeout.current = null;
@@ -143,17 +114,6 @@ const Preview = () => {
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [pages]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      resetScroll();
-    };
-
-    window.visualViewport?.addEventListener("resize", handleResize);
-    return () => {
-      window.visualViewport?.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <div
