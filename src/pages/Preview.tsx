@@ -78,10 +78,14 @@ const Preview = () => {
   const cycleCount = useRef(0);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
+  const getViewportHeight = () => {
+    return window.visualViewport?.height || window.innerHeight;
+  };
+
   const resetScroll = () => {
     if (containerRef.current) {
       const middleIndex = Math.floor(pages.length / 3);
-      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const viewportHeight = getViewportHeight();
       containerRef.current.scrollTo({
         top: viewportHeight * middleIndex,
         behavior: "auto",
@@ -92,9 +96,9 @@ const Preview = () => {
   const reshufflePages = (reset: boolean = true) => {
     setPages(generatePages(cycleCount.current));
     if (reset) {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(resetScroll);
-      });
+      setTimeout(() => {
+        resetScroll();
+      }, 50); // slight delay for layout stabilization
     }
   };
 
@@ -111,7 +115,7 @@ const Preview = () => {
 
       scrollTimeout.current = setTimeout(() => {
         const scrollTop = container.scrollTop;
-        const viewportHeight = window.visualViewport?.height || window.innerHeight;
+        const viewportHeight = getViewportHeight();
         const currentIndex = Math.round(scrollTop / viewportHeight);
 
         const totalPages = pages.length;
@@ -150,7 +154,11 @@ const Preview = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="h-screen overflow-y-scroll">
+    <div
+      ref={containerRef}
+      className="h-screen overflow-y-scroll touch-manipulation relative"
+      style={{ WebkitOverflowScrolling: "touch" }}
+    >
       {pages.map((page) => (
         <div
           key={page.key}
