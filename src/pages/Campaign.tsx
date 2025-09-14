@@ -1,6 +1,6 @@
 import { List, Datagrid, TextField, EditButton, DeleteButton, Create, SimpleForm, TextInput, Edit } from 'react-admin';
 
-export const CampaignList = (props) => (
+export const CampaignList: React.FC = (props) => (
   <List {...props}>
     <Datagrid>
       <TextField source="id" />
@@ -15,7 +15,7 @@ export const CampaignList = (props) => (
 );
 
 
-export const CampaignCreate = (props) => (
+export const CampaignCreate: React.FC = (props) => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" />
@@ -27,7 +27,7 @@ export const CampaignCreate = (props) => (
 );
 
 
-export const CampaignEdit = (props) => (
+export const CampaignEdit: React.FC = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <TextInput source="name" />
