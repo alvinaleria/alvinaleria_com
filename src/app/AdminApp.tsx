@@ -4,8 +4,8 @@ import { Route } from "react-router";
 //Utility
 import DataProvider from "../utils/DataProvider";
 
-import { CampaignList, CampaignCreate, CampaignEdit } from './models/Campaign';
-import { CreativeList, CreativeCreate, CreativeEdit } from './models/Creative';
+import { CampaignList, CampaignCreate, CampaignEdit } from '../models/Campaign';
+import { CreativeList, CreativeCreate, CreativeEdit } from '../models/Creative';
 import Preview from '../pages/Preview';
 import Test from '../pages/Test';
 

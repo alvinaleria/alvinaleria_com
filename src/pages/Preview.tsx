@@ -43,7 +43,6 @@ const generatePages = (cycle: number) => {
   }));
 };
 
-
 const getBackgroundComponent = (type: string) => {
   switch (type) {
     case "finger":
@@ -68,9 +67,8 @@ const getContentComponent = (type: string) => {
   }
 };
 
-
 const Preview = () => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState([]);
   const cycleCount = useRef(0);
 
