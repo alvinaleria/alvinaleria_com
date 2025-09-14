@@ -131,7 +131,7 @@ const Preview = () => {
         >
           {/* Background goes behind */}
           <div className="absolute inset-0 z-0 pointer-events-none select-none">
-            {getBackgroundComponent(page.background)}
+            {getBackgroundComponent(page.background ?? "")}
           </div>
 
           {/* Foreground content */}
