@@ -14,7 +14,6 @@ export const CampaignList = (props) => (
   </List>
 );
 
-
 export const CampaignCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
@@ -26,8 +25,7 @@ export const CampaignCreate = (props) => (
   </Create>
 );
 
-
-export const CampaignEdit: React.FC = (props) => (
+export const CampaignEdit = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <TextInput source="name" />
@@ -37,3 +35,9 @@ export const CampaignEdit: React.FC = (props) => (
     </SimpleForm>
   </Edit>
 );
+
+export default {
+  CampaignList,
+  CampaignCreate,
+  CampaignEdit,
+};

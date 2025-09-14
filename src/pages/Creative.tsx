@@ -17,7 +17,6 @@ export const CreativeList = (props) => (
   </List>
 );
 
-
 export const CreativeCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
@@ -37,7 +36,6 @@ export const CreativeCreate = (props) => (
   </Create>
 );
 
-
 export const CreativeEdit = (props) => (
   <Edit {...props}>
     <SimpleForm>
@@ -56,3 +54,9 @@ export const CreativeEdit = (props) => (
     </SimpleForm>
   </Edit>
 );
+
+export default {
+  CreativeList,
+  CreativeCreate,
+  CreativeEdit,
+};
