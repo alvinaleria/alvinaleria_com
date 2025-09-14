@@ -78,7 +78,7 @@ type Page = {
 
 const Preview = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [pages, setPages] = useState([]);
+  const [pages, setPages] = useState<Page[]>([]);
   const cycleCount = useRef(0);
 
   const resetScroll = () => {
