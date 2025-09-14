@@ -112,6 +112,7 @@ const Preview = () => {
     scrollTimeout.current = setTimeout(() => {
       const scrollTop = container.scrollTop;
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      
       const currentIndex = Math.round(scrollTop / viewportHeight);
 
       const totalPages = pages.length;
@@ -150,11 +151,11 @@ const Preview = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="h-screen overflow-y-scroll">
+    <div ref={containerRef} className="[height:100dvh] overflow-y-scroll overflow-y-scroll">
       {pages.map((page) => (
         <div
           key={page.key}
-          className={`relative h-screen w-full flex flex-col items-center justify-center text-white text-4xl ${page.color}`}
+          className={`relative [height:100dvh] overflow-y-scroll w-full flex flex-col items-center justify-center text-white text-4xl ${page.color}`}
         >
           <div className="absolute inset-0 z-0 pointer-events-none select-none">
             {getBackgroundComponent(page.background ?? "")}
