@@ -1,7 +1,8 @@
-import { useRef, useLayoutEffect, useEffect, useState } from "react";
-import FingerPrintBackground from "../layout/FingerPrintBackground";
-import IntroContent from "../layout/IntroContent";
-import WorksContent from "../layout/WorksContent";
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { useRef, useState, useEffect } from 'react';
+import FingerPrintBackground from '../layout/FingerPrintBackground';
+import IntroContent from '../layout/IntroContent';
+import WorksContent from '../layout/WorksContent';
 
 const extraItems = [
   "Bonus Tip: Stay hydrated!",
@@ -28,18 +29,18 @@ const generatePages = (cycle: number) => {
   const basePages = [
     { id: 1, color: "bg-red-500", content: "intro", background: "finger" },
     { id: 2, color: "bg-black", content: "works" },
-    { id: 3, color: "bg-green-500", content: "Page 3", extra: rotatedExtras[0], background: "swirl" },
-    { id: 4, color: "bg-yellow-300", content: "Page 4", background: "waves" },
+    { id: 3, color: "bg-green-500", content: "Page 3", extra: rotatedExtras[0]},
+    { id: 4, color: "bg-yellow-300", content: "Page 4" },
     { id: 5, color: "bg-purple-500", content: "Page 5", extra: rotatedExtras[1] },
-    { id: 6, color: "bg-pink-500", content: "Page 6", background: "particles" },
+    { id: 6, color: "bg-pink-500", content: "Page 6"},
     { id: 7, color: "bg-indigo-500", content: "Page 7", extra: rotatedExtras[2] },
-    { id: 8, color: "bg-black", content: "Page 8", background: "zoom" },
+    { id: 8, color: "bg-black", content: "Page 8" },
   ];
 
   const timestamp = Date.now();
-  return [...basePages, ...basePages, ...basePages].map((page, i) => ({
+  return basePages.map((page, i) => ({
     ...page,
-    key: `${page.id}-${timestamp}-${i}`,
+    key: `${page.id}-${timestamp}-${cycle}-${i}`,
   }));
 };
 
@@ -59,98 +60,79 @@ const getContentComponent = (type: string) => {
     case "works":
       return <WorksContent />;
     default:
-      return null;
+      return <div className="p-8 text-white text-2xl">{type}</div>;
   }
 };
 
-type Page = {
-  key: string;
-  id: number;
-  color: string;
-  content: string;
-  background?: string;
-  extra?: string;
-};
-
 const Preview = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [pages, setPages] = useState<Page[]>([]);
-  const cycleCount = useRef(0);
-  const lastReshuffleIndex = useRef<number | null>(null);
+  const parentRef = useRef<HTMLDivElement>(null);
+  const [pages, setPages] = useState(() => generatePages(0));
+  const [cycle, setCycle] = useState(1);
 
-  const getViewportHeight = () => {
-    return window.visualViewport?.height || window.innerHeight;
-  };
+  const virtualizer = useVirtualizer({
+    count: pages.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => window.innerHeight,
+    overscan: 5,
+  });
 
-  const reshufflePages = () => {
-    setPages(generatePages(cycleCount.current));
-  };
+  const virtualItems = virtualizer.getVirtualItems();
 
-  useLayoutEffect(() => {
-    reshufflePages(); // Initial load
-  }, []);
-
+  // Load more when near the bottom
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const lastItem = virtualItems[virtualItems.length - 1];
+    if (!lastItem) return;
 
-    const handleScroll = () => {
-      const scrollTop = container.scrollTop;
-      const viewportHeight = getViewportHeight();
-      const currentIndex = Math.round(scrollTop / viewportHeight);
+    const distanceFromBottom = virtualizer.getTotalSize() - (lastItem.start + lastItem.size);
+    const viewportHeight = window.innerHeight;
 
-      const totalPages = pages.length;
-      const baseLength = totalPages / 3;
-
-      const isNearStart = currentIndex === 0;
-      const isNearEnd = currentIndex === totalPages - 1;
-
-      if ((isNearStart || isNearEnd) && lastReshuffleIndex.current !== currentIndex) {
-        cycleCount.current += 1;
-        reshufflePages();
-        lastReshuffleIndex.current = currentIndex;
-      }
-    };
-
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, [pages]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      // No scroll reset on resize
-    };
-
-    window.visualViewport?.addEventListener("resize", handleResize);
-    return () => {
-      window.visualViewport?.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    if (distanceFromBottom < viewportHeight * 2) {
+      const newPages = generatePages(cycle);
+      setPages((prev) => [...prev, ...newPages]);
+      setCycle((prev) => prev + 1);
+    }
+  }, [virtualItems, cycle, virtualizer]);
 
   return (
     <div
-      ref={containerRef}
-      className="h-screen overflow-y-scroll touch-manipulation relative"
-      style={{ WebkitOverflowScrolling: "touch" }}
+      ref={parentRef}
+      className="h-screen overflow-y-auto w-full"
+      style={{ WebkitOverflowScrolling: 'touch' }}
     >
-      {pages.map((page) => (
-        <div
-          key={page.key}
-          className={`relative h-screen w-full flex flex-col items-center justify-center text-white text-4xl ${page.color}`}
-        >
-          <div className="absolute inset-0 z-0 pointer-events-none select-none">
-            {getBackgroundComponent(page.background ?? "")}
-          </div>
+      <div
+        style={{
+          height: virtualizer.getTotalSize(),
+          position: 'relative',
+        }}
+      >
+        {virtualItems.map((virtualRow) => {
+          const page = pages[virtualRow.index];
+          return (
+            <div
+              key={page.key}
+              className={`absolute top-0 left-0 w-full ${page.color}`}
+              style={{
+                transform: `translateY(${virtualRow.start}px)`,
+                height: `${virtualRow.size}px`,
+              }}
+            >
+              <div className="absolute inset-0 z-0 pointer-events-none select-none">
+                {getBackgroundComponent(page.background ?? '')}
+              </div>
 
-          {getContentComponent(page.content)}
-          <div className="absolute z-10">{page.content}</div>
-          {page.extra && (
-            <div className="mt-4 text-xl text-white/80 relative z-10">
-              {page.extra}
+              {getContentComponent(page.content)}
+
+              <div className="absolute z-10">{page.content}</div>
+
+              {page.extra && (
+                <div className="mt-4 text-xl text-white/80 relative z-10">
+                  {page.extra}
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      ))}
+          );
+        })}
+      </div>
     </div>
   );
 };
