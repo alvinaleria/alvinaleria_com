@@ -6,7 +6,7 @@ const dataProvider = jsonServerProvider('/api');
 
 const DataProvider = {
   ...dataProvider,
-  create: async (resource, params) => {
+  create: async (resource: string, params: any) => {
     let fileUrl = null;
 
     if (resource === 'creatives') {
@@ -45,7 +45,7 @@ const DataProvider = {
       return { data: json };
     }
   },
-  update: async (resource, params) => {
+  update: async (resource: string, params: any) => {
     let fileUrl = null;
 
     if (resource === 'creatives') {
