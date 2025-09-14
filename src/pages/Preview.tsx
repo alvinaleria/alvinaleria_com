@@ -77,6 +77,7 @@ const Preview = () => {
   const [pages, setPages] = useState<Page[]>([]);
   const cycleCount = useRef(0);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const hasInitialized = useRef(false);
 
   const getViewportHeight = () => {
     return window.visualViewport?.height || window.innerHeight;
@@ -98,7 +99,8 @@ const Preview = () => {
     if (reset) {
       setTimeout(() => {
         resetScroll();
-      }, 50); // slight delay for layout stabilization
+        hasInitialized.current = true;
+      }, 150); // longer delay to allow layout stabilization
     }
   };
 
@@ -111,7 +113,7 @@ const Preview = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      if (scrollTimeout.current) return;
+      if (!hasInitialized.current || scrollTimeout.current) return;
 
       scrollTimeout.current = setTimeout(() => {
         const scrollTop = container.scrollTop;
