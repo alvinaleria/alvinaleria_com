@@ -45,10 +45,10 @@ export const CreativeEdit = (props: EditProps) => (
       <TextInput source="name" />
       <TextInput source="width" />
       <TextInput source="height" />
-      <FileInput source="file" label="Zip" accept=".zip, .mp4" multiple={false}>
+      <FileInput source="file" label="Zip" accept={{ 'application/zip': ['.zip'], 'video/*': ['.mp4'] }} multiple={false}>
           <FileField source="src" title="title" />
       </FileInput>
-      <ImageInput source="backup" label="Backup Image" accept="image/*">
+      <ImageInput source="backup" label="Backup Image" accept={{ 'image/png': ['.png'], 'image/jpg': ['.jpg, .jpeg'], 'image/gif': ['.gif'] }}>
           <ImageField source="src" title="title" />
       </ImageInput>
     </SimpleForm>
