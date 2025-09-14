@@ -1,6 +1,6 @@
 import { List, Datagrid, TextField, EditButton, DeleteButton, Create, SimpleForm, TextInput, Edit } from 'react-admin';
 
-export const CampaignList = (props) => (
+const CampaignList = (props) => (
   <List {...props}>
     <Datagrid>
       <TextField source="id" />
@@ -14,7 +14,7 @@ export const CampaignList = (props) => (
   </List>
 );
 
-export const CampaignCreate = (props) => (
+const CampaignCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" />
@@ -25,7 +25,7 @@ export const CampaignCreate = (props) => (
   </Create>
 );
 
-export const CampaignEdit = (props) => (
+const CampaignEdit = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <TextInput source="name" />
@@ -36,6 +36,9 @@ export const CampaignEdit = (props) => (
   </Edit>
 );
 
+export default {
+  List: CampaignList,
+  Create: CampaignCreate,
+  Edit: CampaignEdit,
+};
 
-const CampaignPage = () => null;
-export default CampaignPage;
