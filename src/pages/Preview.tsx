@@ -14,7 +14,10 @@ const extraItems = [
 const rotateExtras = (cycle: number) => {
   const rotated = [...extraItems];
   for (let i = 0; i < cycle; i++) {
-    rotated.push(rotated.shift()); // rotate left
+    const first = rotated.shift();
+    if (first !== undefined) {
+      rotated.push(first);
+    }
   }
   return rotated;
 };
