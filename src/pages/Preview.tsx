@@ -110,13 +110,17 @@ const Preview = () => {
         const pageHeight = window.innerHeight;
         const currentIndex = Math.round(scrollTop / pageHeight);
 
-        const isNearTop = currentIndex <= 1;
-        const isNearBottom = currentIndex >= pages.length - 2;
+        const totalPages = pages.length;
+        const baseLength = totalPages / 3;
 
-        if (isNearTop || isNearBottom) {
-          container.scrollTop = isNearTop
-            ? scrollTop + pageHeight * 8
-            : scrollTop - pageHeight * 8;
+        const isNearStart = currentIndex <= 1;
+        const isNearEnd = currentIndex >= totalPages - 2;
+
+        if (isNearStart || isNearEnd) {
+          const offset = pageHeight * baseLength;
+          container.scrollTop = isNearStart
+            ? scrollTop + offset
+            : scrollTop - offset;
 
           cycleCount.current += 1;
           reshufflePages(false);
