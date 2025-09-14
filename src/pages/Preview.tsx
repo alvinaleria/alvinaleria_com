@@ -29,12 +29,12 @@ const generatePages = (cycle: number) => {
   const basePages = [
     { id: 1, color: "bg-red-500", content: "intro", background: "finger" },
     { id: 2, color: "bg-black", content: "works" },
-    { id: 3, color: "bg-green-500", content: "Page 3", extra: rotatedExtras[0]},
-    { id: 4, color: "bg-yellow-300", content: "Page 4" },
+    { id: 3, color: "bg-green-500", content: "Page 3", extra: rotatedExtras[0], background: "swirl" },
+    { id: 4, color: "bg-yellow-300", content: "Page 4", background: "waves" },
     { id: 5, color: "bg-purple-500", content: "Page 5", extra: rotatedExtras[1] },
-    { id: 6, color: "bg-pink-500", content: "Page 6"},
+    { id: 6, color: "bg-pink-500", content: "Page 6", background: "particles" },
     { id: 7, color: "bg-indigo-500", content: "Page 7", extra: rotatedExtras[2] },
-    { id: 8, color: "bg-black", content: "Page 8" },
+    { id: 8, color: "bg-black", content: "Page 8", background: "zoom" },
   ];
 
   const timestamp = Date.now();
@@ -48,6 +48,14 @@ const getBackgroundComponent = (type: string) => {
   switch (type) {
     case "finger":
       return <FingerPrintBackground />;
+    case "swirl":
+      return <div className="swirl-background" />;
+    case "waves":
+      return <div className="waves-background" />;
+    case "particles":
+      return <div className="particles-background" />;
+    case "zoom":
+      return <div className="zoom-background" />;
     default:
       return null;
   }
@@ -68,30 +76,36 @@ const Preview = () => {
   const parentRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState(() => generatePages(0));
   const [cycle, setCycle] = useState(1);
+  const [viewportHeight, setViewportHeight] = useState(600); // SSR-safe fallback
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setViewportHeight(window.innerHeight);
+    }
+  }, []);
 
   const virtualizer = useVirtualizer({
     count: pages.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => window.innerHeight,
+    estimateSize: () => viewportHeight,
     overscan: 5,
   });
 
   const virtualItems = virtualizer.getVirtualItems();
 
-  // Load more when near the bottom
+  // Infinite scroll trigger
   useEffect(() => {
     const lastItem = virtualItems[virtualItems.length - 1];
     if (!lastItem) return;
 
     const distanceFromBottom = virtualizer.getTotalSize() - (lastItem.start + lastItem.size);
-    const viewportHeight = window.innerHeight;
 
     if (distanceFromBottom < viewportHeight * 2) {
       const newPages = generatePages(cycle);
       setPages((prev) => [...prev, ...newPages]);
       setCycle((prev) => prev + 1);
     }
-  }, [virtualItems, cycle, virtualizer]);
+  }, [virtualItems, cycle, viewportHeight, virtualizer]);
 
   return (
     <div
