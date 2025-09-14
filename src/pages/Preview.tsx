@@ -76,7 +76,8 @@ const Preview = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState<Page[]>([]);
   const cycleCount = useRef(0);
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollTime = useRef(0);
+  const isThrottled = useRef(false);
 
   const getViewportHeight = () => {
     return window.visualViewport?.height || window.innerHeight;
@@ -87,7 +88,7 @@ const Preview = () => {
   };
 
   useLayoutEffect(() => {
-    reshufflePages();
+    reshufflePages(); // Initial load
   }, []);
 
   useEffect(() => {
@@ -95,25 +96,48 @@ const Preview = () => {
     if (!container) return;
 
     const handleScroll = () => {
-      if (scrollTimeout.current) return;
+      if (isThrottled.current) return;
 
-      scrollTimeout.current = setTimeout(() => {
+      isThrottled.current = true;
+      requestAnimationFrame(() => {
         const scrollTop = container.scrollTop;
         const viewportHeight = getViewportHeight();
         const currentIndex = Math.round(scrollTop / viewportHeight);
 
-        if (currentIndex === 7) {
+        const totalPages = pages.length;
+        const baseLength = totalPages / 3;
+
+        const isNearStart = currentIndex <= 1;
+        const isNearEnd = currentIndex >= totalPages - 2;
+
+        if (isNearStart || isNearEnd) {
+          const offset = viewportHeight * baseLength;
+          container.scrollTop = isNearStart
+            ? scrollTop + offset
+            : scrollTop - offset;
+
           cycleCount.current += 1;
           reshufflePages();
         }
 
-        scrollTimeout.current = null;
-      }, 100);
+        isThrottled.current = false;
+      });
     };
 
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [pages]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // No scroll reset on resize
+    };
+
+    window.visualViewport?.addEventListener("resize", handleResize);
+    return () => {
+      window.visualViewport?.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div
