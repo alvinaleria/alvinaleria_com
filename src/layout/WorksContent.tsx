@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {isMobile} from 'react-device-detect';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const words = [
-  "BANNER ADS",
-  "LANDING PAGES",
-  "EMAIL TEMPLATES",
-  "CUSTOM WEBSITES",
-  "INTERACTIVE EXPERIENCES",
+  "BANNER AD",
+  "LANDING PAGE",
+  "EMAIL TEMPLATE",
+  "CUSTOM WEBSITE",
+  "INTERACTIVE EXP",
   "MOTION GRAPHICS",
   "GRAPHIC DESIGN"
 ];
@@ -63,45 +64,126 @@ const WorksContent = () => {
   }, [lines]);
 
   return (
-    <section className="font-arvo text-white min-h-screen px-0 overflow-hidden flex flex-col ml-[-100px] justify-center items-start gap-4 relative">
-      <div ref={containerRef} className="flex flex-col gap-6 w-full relative">
+    <section className="font-arvo text-white min-h-screen px-0 overflow-hidden flex flex-col ml-[-200px] md:ml-[-100px] justify-center items-start gap-4 relative">
+      <div ref={containerRef} className="flex flex-col gap-3 w-full relative">
         {lines.map((line, lineIndex) => (
           <div
             key={lineIndex}
-            className="w-full whitespace-nowrap font-semibold text-6xl leading-[1em]"
+            className="w-full whitespace-nowrap font-semibold text-3xl md:text-6xl leading-[1em]"
           >
             {line.map((word, wordIndex) => {
-              if (lineIndex === 2 && wordIndex === 1) {
-                return (
-                  <span
-                    key={`special-${lineIndex}-${wordIndex}`}
-                    className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
-                  >
-                    THESE ARE A FEW PROJECTS I
-                  </span>
-                );
-              }
+              if(!isMobile) {
+                if (lineIndex === 2 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      THESE ARE A FEW
+                    </span>
+                  );
+                }
 
-              if (lineIndex === 3 && wordIndex === 1) {
-                return (
-                  <span
-                    key={`special-${lineIndex}-${wordIndex}`}
-                    className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
-                  >
-                     WORKED IN THE PAST FEW YEARS.
-                  </span>
-                );
-              }
 
-               if (lineIndex === 4 && wordIndex === 1) {
-                return (
-                  <span
-                    key={`special-${lineIndex}-${wordIndex}`}
-                    className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
-                  >
-                     PLEASE ENJOY!
-                  </span>
-                );
+                if (lineIndex === 3 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      PROJECTS I WORKED ON
+                    </span>
+                  );
+                }
+
+                if (lineIndex === 4 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      IN THE PAST FEW YEARS. 
+                    </span>
+                  );
+                }
+
+                if (lineIndex === 5 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      PLEASE ENJOY!
+                    </span>
+                  );
+                }
+              } else {
+                if (lineIndex === 4 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      THESE ARE
+                    </span>
+                  );
+                }
+
+
+                if (lineIndex === 5 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      A FEW PROJECTS
+                    </span>
+                  );
+                }
+
+                if (lineIndex === 6 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                       I WORKED ON
+                    </span>
+                  );
+                }
+
+                if (lineIndex === 7 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      IN THE PAST
+                    </span>
+                  );
+                }
+
+                if (lineIndex === 8 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      FEW YEARS.
+                    </span>
+                  );
+                }
+
+                if (lineIndex === 9 && wordIndex === 1) {
+                  return (
+                    <span
+                      key={`special-${lineIndex}-${wordIndex}`}
+                      className="text-yellow-400 opacity-100 font-bold inline-block mr-6"
+                    >
+                      PLEASE ENJOY!
+                    </span>
+                  );
+                }
               }
 
               return (

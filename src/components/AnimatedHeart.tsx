@@ -87,7 +87,7 @@ const AnimatedHeart = () => {
     setClock();
 
     return (
-            <svg className="w-[20%] w-[20%] md:w-[75%] w-[75%]" viewBox="0 0 1256 1352" preserveAspectRatio="xMidYMid meet">
+            <svg className="w-[100%] w-[100%] md:w-[75%] w-[75%] top-500" viewBox="0 0 1256 1352" preserveAspectRatio="xMidYMid meet">
                 <image href={AnimatedHeart_aorta.src} className="absolute w-full h-full object-contain aorta" />
                 <image href={AnimatedHeart_cava.src} className="absolute w-full h-full object-contain cava" />
                 <image href={AnimatedHeart_artery.src} className="absolute w-full h-full object-contain artery" />
