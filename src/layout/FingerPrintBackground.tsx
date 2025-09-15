@@ -13,6 +13,7 @@ const bgRef = useRef(null);
         x: gsap.utils.random(-50, 50),
         y: gsap.utils.random(-50, 50),
         duration: gsap.utils.random(5, 10),
+        transformOrigin: "50% 50%",
         ease: "power1.inOut",
         onComplete: animateBackground,
       });

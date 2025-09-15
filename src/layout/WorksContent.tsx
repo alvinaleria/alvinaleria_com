@@ -118,7 +118,7 @@ const WorksContent = () => {
                   );
                 }
               } else {
-                if (lineIndex === 4 && wordIndex === 1) {
+                if (lineIndex === 3 && wordIndex === 1) {
                   return (
                     <span
                       key={`special-${lineIndex}-${wordIndex}`}
@@ -130,7 +130,7 @@ const WorksContent = () => {
                 }
 
 
-                if (lineIndex === 5 && wordIndex === 1) {
+                if (lineIndex === 4 && wordIndex === 1) {
                   return (
                     <span
                       key={`special-${lineIndex}-${wordIndex}`}
@@ -141,7 +141,7 @@ const WorksContent = () => {
                   );
                 }
 
-                if (lineIndex === 6 && wordIndex === 1) {
+                if (lineIndex === 5 && wordIndex === 1) {
                   return (
                     <span
                       key={`special-${lineIndex}-${wordIndex}`}
@@ -152,7 +152,7 @@ const WorksContent = () => {
                   );
                 }
 
-                if (lineIndex === 7 && wordIndex === 1) {
+                if (lineIndex === 6 && wordIndex === 1) {
                   return (
                     <span
                       key={`special-${lineIndex}-${wordIndex}`}
@@ -163,7 +163,7 @@ const WorksContent = () => {
                   );
                 }
 
-                if (lineIndex === 8 && wordIndex === 1) {
+                if (lineIndex === 7 && wordIndex === 1) {
                   return (
                     <span
                       key={`special-${lineIndex}-${wordIndex}`}
@@ -174,7 +174,7 @@ const WorksContent = () => {
                   );
                 }
 
-                if (lineIndex === 9 && wordIndex === 1) {
+                if (lineIndex === 8 && wordIndex === 1) {
                   return (
                     <span
                       key={`special-${lineIndex}-${wordIndex}`}
