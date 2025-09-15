@@ -28,7 +28,7 @@ const generatePages = (cycle: number) => {
 
   const basePages = [
     { id: 1, color: "bg-red-500", content: "intro", background: "finger" },
-    { id: 2, color: "bg-black", content: "works" },
+    { id: 2, color: "bg-black", content: "works"},
     { id: 3, color: "bg-green-500", content: "Page 3", extra: rotatedExtras[0], background: "swirl" },
     { id: 4, color: "bg-yellow-300", content: "Page 4", background: "waves" },
     { id: 5, color: "bg-purple-500", content: "Page 5", extra: rotatedExtras[1] },
@@ -48,8 +48,6 @@ const getBackgroundComponent = (type: string) => {
   switch (type) {
     case "finger":
       return <FingerPrintBackground />;
-    case "swirl":
-      return <div className="swirl-background" />;
     case "waves":
       return <div className="waves-background" />;
     case "particles":
@@ -87,7 +85,10 @@ const Preview = () => {
   const virtualizer = useVirtualizer({
     count: pages.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => viewportHeight,
+    estimateSize: (index) => {
+      const page = pages[index];
+      return page.id === 2 ? (viewportHeight / 3)*2 : viewportHeight;
+    },
     overscan: 5,
   });
 
@@ -104,13 +105,13 @@ const Preview = () => {
       const newPages = generatePages(cycle);
       setPages((prev) => [...prev, ...newPages]);
       setCycle((prev) => prev + 1);
-    }
+    } 
   }, [virtualItems, cycle, viewportHeight, virtualizer]);
 
   return (
     <div
       ref={parentRef}
-      className="h-screen overflow-y-auto w-full"
+      className="h-screen overflow-y-auto overflow-hidden w-full"
       style={{ WebkitOverflowScrolling: 'touch' }}
     >
       <div
@@ -136,11 +137,13 @@ const Preview = () => {
 
               {getContentComponent(page.content)}
 
-              <div className="absolute z-10">{page.content}</div>
-
+              <div className="absolute z-10">{page.extra}</div>
+              
               {page.extra && (
-                <div className="mt-4 text-xl text-white/80 relative z-10">
-                  {page.extra}
+                <div className="relative z-10 w-full overflow-visible">
+                  <div className="text-xl text-white/80 whitespace-nowrap w-[150vw] -ml-[25vw]">
+                    {page.extra}
+                  </div>
                 </div>
               )}
             </div>
