@@ -177,7 +177,7 @@ const Modal: React.FC<ModalProps> = ({ item, onClose }) => {
 
               <div className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute bottom-[-50%] left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0">
                 <video
-                  src={item.videoUrl}
+                  src={item?.videoUrl}
                   controls
                   className="w-full border-4 border-yellow-400 rounded-lg"
                 />
