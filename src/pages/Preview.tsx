@@ -66,7 +66,7 @@ const overlayColors = ["bg-blue-300", "bg-pink-300", "bg-black"];
 
 const overlayVariants = {
   hidden: { scale: 0, opacity: 0 },
-  visible: (i) => ({
+  visible: (i: number) => ({
     originY: 0,
     originX: 0,
     scale: 1,
@@ -77,7 +77,7 @@ const overlayVariants = {
       ease: "easeOut",
     },
   }),
-  exit: (i) => ({
+  exit: (i: number) => ({
     originY: 0,
     originX: 0,
     scale: 0,
@@ -111,7 +111,12 @@ const modalVariants = {
   },
 };
 
-const Modal = ({ item, onClose }) => {
+type ModalProps = {
+  item: ThumbnailItem | null;
+  onClose: () => void;
+};
+
+const Modal: React.FC<ModalProps> = ({ item, onClose }) => {
   const [isExiting, setIsExiting] = useState(false);
 
   const handleClose = () => {
@@ -126,7 +131,7 @@ const Modal = ({ item, onClose }) => {
     <AnimatePresence>
       {(item || isExiting) && (
         <>
-          {overlayColors.map((color, i) => (
+          {overlayColors.map((color: string, i: number) => (
             <motion.div
               key={`overlay-${i}`}
               custom={i}
@@ -207,7 +212,7 @@ const Preview = () => {
         return <div className="p-8 text-white text-2xl">{type}</div>;
     }
   };
-  
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setViewportHeight(window.innerHeight);
