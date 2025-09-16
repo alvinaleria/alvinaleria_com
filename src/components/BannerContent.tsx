@@ -1,6 +1,18 @@
 
 import React, { useState } from "react";
 
+type ThumbnailItem = {
+  id: number;
+  title: string;
+  description: string;
+  videoUrl: string;
+  thumbnail: string;
+};
+
+type BannerContentProps = {
+  setSelectedItem: (item: ThumbnailItem | null) => void;
+};
+
 const thumbnails = [
   {
     id: 1,
@@ -110,8 +122,7 @@ const thumbnails = [
 ];
 
 
-
-const BannerContent = ({ setSelectedItem }) => {
+const BannerContent: React.FC<BannerContentProps> = ({ setSelectedItem })  => {
   return (
     <section className="px-4 py-4 max-w-7xl mx-auto">
       <div className="text-center mb-8">
@@ -142,3 +153,4 @@ const BannerContent = ({ setSelectedItem }) => {
 };
 
 export default BannerContent;
+export type { ThumbnailItem };
