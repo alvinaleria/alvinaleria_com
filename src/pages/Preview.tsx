@@ -184,8 +184,8 @@ const Modal: React.FC<ModalProps> = ({ item, onClose }) => {
               </div>
 
               <div className="w-full md:w-[60%] pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
-                <h2 className="text-3xl text-gray-700 font-bold mb-4">{item.title}</h2>
-                <p className="text-lg text-gray-700">{item.description}</p>
+                <h2 className="text-3xl text-gray-700 font-bold mb-4">{item?.title}</h2>
+                <p className="text-lg text-gray-700">{item?.description}</p>
               </div>
             </motion.div>
           </motion.div>
