@@ -92,15 +92,14 @@ const overlayVariants: Variants = {
   }),
 };
 
-
-const modalVariants = {
+const modalVariants: Variants = {
   hidden: { scale: 0.9, opacity: 0 },
   visible: {
     originY: 0,
     originX: 0,
     scale: 1,
     opacity: 1,
-    transition: { delay: 1.8, duration: 0.5, ease: "easeOut" },
+    transition: { delay: 1.8, duration: 0.5, ease: easeOut },
   },
   exit: {
     originY: 0,
@@ -109,7 +108,7 @@ const modalVariants = {
     opacity: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };
