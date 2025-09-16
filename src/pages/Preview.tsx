@@ -7,6 +7,8 @@ import IntroContent from '../components/IntroContent';
 import WorksContent from '../components/WorksContent';
 import BannerContent from '../components/BannerContent';
 
+import { ThumbnailItem } from "../components/BannerContent";
+
 const extraItems = [
   "Bonus Tip: Stay hydrated!",
   "Did you know? Cats sleep 70% of their lives.",
