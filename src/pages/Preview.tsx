@@ -200,7 +200,16 @@ const Preview = () => {
   const [pages, setPages] = useState(() => generatePages(0));
   const [cycle, setCycle] = useState(1);
   const [viewportHeight, setViewportHeight] = useState(600); // SSR-safe fallback
-  const [selectedItem, setSelectedItem] = useState(null);
+
+  type ThumbnailItem = {
+    id: number;
+    title: string;
+    description: string;
+    videoUrl: string;
+    thumbnail: string;
+  };
+
+  const [selectedItem, setSelectedItem] = useState<ThumbnailItem | null>(null);
 
   const getContentComponent = (type: string) => {
     switch (type) {
