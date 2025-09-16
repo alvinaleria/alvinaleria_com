@@ -1,7 +1,7 @@
 
 import { useRef, useEffect, useState } from "react"
-import  AnimatedHeart from '../components/AnimatedHeart';
-import  IntroCopy from '../components/IntroCopy';
+import  AnimatedHeart from './AnimatedHeart';
+import  IntroCopy from './IntroCopy';
 
 const IntroContent = () => {
   return (
