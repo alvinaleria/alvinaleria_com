@@ -1,6 +1,6 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence } from "framer-motion";
+import { easeOut, easeInOut, motion, AnimatePresence, Variants } from "framer-motion";
 
 import FingerPrintBackground from '../layout/FingerPrintBackground';
 import IntroContent from '../components/IntroContent';
@@ -66,7 +66,7 @@ const getBackgroundComponent = (type: string) => {
 
 const overlayColors = ["bg-blue-300", "bg-pink-300", "bg-black"];
 
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden: { scale: 0, opacity: 0 },
   visible: (i: number) => ({
     originY: 0,
@@ -76,7 +76,7 @@ const overlayVariants = {
     transition: {
       delay: i * 0.2,
       duration: 1.2,
-      ease: "easeOut",
+      ease: easeOut,
     },
   }),
   exit: (i: number) => ({
@@ -87,10 +87,11 @@ const overlayVariants = {
     transition: {
       delay: (overlayColors.length - i - 1) * 0.2,
       duration: 1.2,
-      ease: "easeInOut",
+      ease: easeInOut,
     },
   }),
 };
+
 
 const modalVariants = {
   hidden: { scale: 0.9, opacity: 0 },
