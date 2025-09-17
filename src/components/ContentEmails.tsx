@@ -45,7 +45,8 @@ const thumbnails = [
     id: 4,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
