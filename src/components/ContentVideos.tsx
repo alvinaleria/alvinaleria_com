@@ -11,7 +11,7 @@ type VideoThumbItem = {
 };
 
 type ThumbnailContentProps = {
-  setSelectedItem: (item: VideoThumbItem | null) => void;
+  setSelectedVideo: (item: VideoThumbItem | null) => void;
 };
 
 const thumbnails = [

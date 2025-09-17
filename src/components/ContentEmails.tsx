@@ -13,7 +13,7 @@ type ImageThumbItem = {
 };
 
 type ThumbnailContentProps = {
-  setSelectedItem: (item: ImageThumbItem | null) => void;
+  setSelectedImage: (item: ImageThumbItem | null) => void;
 };
 
 const thumbnails = [
