@@ -1,17 +1,19 @@
 
 import React, { useState } from "react";
 import { isMobile } from "react-device-detect";
+import ModalImage from './ModalImage';
 
-type VideoThumbItem = {
+type ImageThumbItem = {
   id: number;
   title: string;
   description: string;
-  videoUrl: string;
+  desktopImg: string;
+  mobileImg: string;
   thumbnail: string;
 };
 
 type ThumbnailContentProps = {
-  setSelectedItem: (item: VideoThumbItem | null) => void;
+  setSelectedItem: (item: ImageThumbItem | null) => void;
 };
 
 const thumbnails = [
@@ -19,21 +21,24 @@ const thumbnails = [
     id: 1,
     title: "Interactive Landing Page",
     description: "A dynamic landing page with animations and scroll effects.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 2,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 3,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
@@ -47,77 +52,88 @@ const thumbnails = [
     id: 5,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 6,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 7,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 8,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 9,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 10,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 11,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 12,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 13,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 14,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
   {
     id: 15,
     title: "Email Campaign",
     description: "Responsive email templates for a product launch.",
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    desktopImg: "image1.png",
+    mobileImg: "image2.png",
     thumbnail: "apple_news1_starbucks.jpg",
   },
 ];
@@ -132,16 +148,16 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  => {
+const ContentEmails: React.FC<ThumbnailContentProps> = ({ setSelectedImage })  => {
   const limit = isMobile ? 8 : 15;
   const shuffledThumbnails = shuffleArray(thumbnails).slice(0, limit);
 
   return (
     <section className="px-4 py-4 max-w-7xl mx-auto">
       <div className="text-center mb-4">
-        <h1 className="font-arvo text-black text-3xl md:text-4xl font-bold mb-2">MOTION GRAPHICS</h1>
+        <h1 className="font-arvo text-black text-3xl md:text-4xl font-bold mb-2">Email Template</h1>
         <p className="font-roboto text-gray-800 text-lg">
-          Social media has been a big part of our lives for the past decade. These short motion graphics are designed to be eye-catching and deliver a message quickly. 
+          Email coding is a lost art that requires a delicate balance between the knowledge of legacy browser and devices and modern innovation. Here are a few I have coded for various all-in-one marketing platforms out in the market now.
         </p>
       </div>
 
@@ -150,7 +166,7 @@ const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  =
           <div
               key={thumb.id}
               className="w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
-              onClick={() => setSelectedVideo(thumb)}
+              onClick={() => setSelectedImage(thumb)}
             >
 
             <img
@@ -165,5 +181,5 @@ const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  =
   );
 };
 
-export default ContentVideos;
-export type { VideoThumbItem };
+export default ContentEmails;
+export type { ImageThumbItem };

@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ModalImage from '../components/ModalImage';
 
 const thumbnails = [
   {
@@ -127,6 +128,7 @@ const ThumbnailGrid = () => {
           <div
             key={thumb.id}
             className="bg-white rounded shadow hover:shadow-lg transition cursor-pointer"
+            onClick={() => setSelectedItem(thumb)}
           >
             <img
               src={`/${thumb.thumbnail}`}
@@ -136,7 +138,7 @@ const ThumbnailGrid = () => {
           </div>
         ))}
       </div>
-
+      <ModalImage item={selectedItem} onClose={() => setSelectedItem(null)} />
     </section>
   );
 };

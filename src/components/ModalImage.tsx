@@ -1,7 +1,6 @@
-// components/Modal.tsx
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants, easeOut, easeInOut } from 'framer-motion';
-import { VideoThumbItem } from './ContentBanners'; // adjust path if needed
+import { ImageThumbItem } from './ContentEmails';
 
 const overlayColors = ["bg-blue-300", "bg-pink-300", "bg-black"];
 
@@ -57,8 +56,10 @@ type ModalProps = {
   onClose: () => void;
 };
 
-const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
+const ModalImage: React.FC<ModalProps> = ({ item, onClose }) => {
   const [isExiting, setIsExiting] = useState(false);
+  const image1Ref = useRef<HTMLImageElement>(null);
+  const image2Ref = useRef<HTMLImageElement>(null);
 
   const handleClose = () => {
     setIsExiting(true);
@@ -68,11 +69,23 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
     }, overlayColors.length * 300 + 500);
   };
 
+  const openFullscreen = (ref: React.RefObject<HTMLImageElement>) => {
+    if (ref.current) {
+      if (ref.current.requestFullscreen) {
+        ref.current.requestFullscreen();
+      } else if ((ref.current as any).webkitRequestFullscreen) {
+        (ref.current as any).webkitRequestFullscreen();
+      } else if ((ref.current as any).msRequestFullscreen) {
+        (ref.current as any).msRequestFullscreen();
+      }
+    }
+  };
+
   return (
     <AnimatePresence>
       {(item || isExiting) && (
         <>
-          {overlayColors.map((color: string, i: number) => (
+          {overlayColors.map((color, i) => (
             <motion.div
               key={`overlay-${i}`}
               custom={i}
@@ -101,7 +114,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
             exit="exit"
           >
             <motion.div
-              className="relative md:left-[250px] bg-white rounded-lg shadow-lg w-[63%] md:w-[525px] min-h-[300px] md:min-h-[500px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
+              className="relative bg-white rounded-lg shadow-lg w-[63%] md:w-[525px] min-h-[300px] md:min-h-[500px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
               variants={modalVariants}
               initial="hidden"
               animate="visible"
@@ -114,14 +127,32 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                 &times;
               </button>
 
-              <div className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute bottom-[-50%] left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0">
-                <video
-                  src={item?.videoUrl}
-                  controls
-                  className="w-full border-4 border-yellow-400 rounded-lg"
+              {/* Image Grid */}
+              <div
+                className="w-full md:w-[60%] bg-yellow-300 rounded-lg p-4 flex flex-col md:flex-row gap-4 justify-center items-center z-40 mt-4 md:mt-0"
+                style={{
+                  maxHeight: '90%',
+                  overflow: 'hidden',
+                }}
+              >
+                <img
+                  ref={image1Ref}
+                  src={item?.desktopImg}
+                  alt="Preview 1"
+                  className="w-full md:w-[48%] h-auto object-cover rounded-lg border-4 border-white cursor-pointer fullscreen-image"
+                  onClick={() => openFullscreen(image1Ref)}
+                />
+                <img
+                  ref={image2Ref}
+                  src={item?.mobileImg}
+                  alt="Preview 2"
+                  className="w-full md:w-[48%] h-auto object-cover rounded-lg border-4 border-white cursor-pointer fullscreen-image"
+                  onClick={() => openFullscreen(image2Ref)}
                 />
               </div>
 
+
+              {/* Text Content */}
               <div className="w-full md:w-[60%] pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
                 <h2 className="text-3xl text-gray-700 font-bold mb-4">{item?.title}</h2>
                 <p className="text-lg text-gray-700">{item?.description}</p>
@@ -134,4 +165,4 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
   );
 };
 
-export default ModalVideo;
+export default ModalImage;

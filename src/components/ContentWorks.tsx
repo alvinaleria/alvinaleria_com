@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 gsap.registerPlugin(ScrollTrigger);
 

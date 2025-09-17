@@ -13,8 +13,8 @@ const MinimalLayout = ({ children }: LayoutProps) => {
         <meta data-n-head="1" property="og:url" content="https://alvinaleria.com"></meta>
         <meta data-n-head="1" name="twitter:card" content="summary_large_image"></meta>
         <meta data-n-head="1" name="twitter:creator" content="@alvinaleria"></meta>
-        <meta data-n-head="1" name="twitter:image:src" content="https://patrickheng.com/share-tw.jpg"></meta>
-        <link rel="icon" type="image/png" href="//alvinaleria.com/favicon.png" />
+        <meta data-n-head="1" name="twitter:image:src" content="https://alvinaleria.com/images/logo.png"></meta>
+        <link rel="icon" type="image/png" href="https://alvinaleria.com/favicon.png" />
         </Head>
         {children}
     </>;

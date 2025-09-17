@@ -7,9 +7,12 @@ import ContentIntro from '../components/ContentIntro';
 import ContentWorks from '../components/ContentWorks';
 import ContentBanners from '../components/ContentBanners';
 import ContentVideos from '../components/ContentVideos';
+import ContentEmails from '../components/ContentEmails';
 import ModalVideo from '../components/ModalVideo';
+import ModalImage from '../components/ModalImage';
 
-import { ThumbnailItem } from "../components/ContentBanners";
+import { VideoThumbItem } from "../components/ContentBanners";
+import { ImageThumbItem } from "../components/ContentEmails";
 
 const extraItems = [
   "Bonus Tip: Stay hydrated!",
@@ -39,7 +42,7 @@ const generatePages = (cycle: number) => {
     { id: 3, color: "bg-[#e5cc96]", content: "banner", extra: rotatedExtras[0]},
     { id: 4, color: "bg-[#e5cc96]", content: "videos", extra: rotatedExtras[1] },
     { id: 5, color: "bg-purple-500", content: "Page 5"  },
-    { id: 6, color: "bg-pink-500", content: "Page 6", extra: rotatedExtras[3] },
+    { id: 6, color: "bg-pink-500", content: "emails", extra: rotatedExtras[3] },
     { id: 7, color: "bg-indigo-500", content: "Page 7", extra: rotatedExtras[4] },
     { id: 8, color: "bg-black", content: "Page 8", background: "zoom" },
   ];
@@ -80,7 +83,8 @@ const Landing = () => {
     thumbnail: string;
   };
 
-  const [selectedItem, setSelectedItem] = useState<ThumbnailItem | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<VideoThumbItem | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageThumbItem | null>(null);
 
   const getContentComponent = (type: string) => {
     switch (type) {
@@ -89,9 +93,11 @@ const Landing = () => {
       case "works":
         return <ContentWorks />;
       case "banner":
-        return <ContentBanners setSelectedItem={setSelectedItem} />;
+        return <ContentBanners setSelectedVideo={setSelectedVideo} />;
       case "videos":
-        return <ContentVideos setSelectedItem={setSelectedItem} />;
+        return <ContentVideos setSelectedVideo={setSelectedVideo} />;
+      case "emails":
+        return <ContentEmails setSelectedImage={setSelectedImage} />;
       default:
         return <div className="p-8 text-white text-2xl">{type}</div>;
     }
@@ -172,7 +178,8 @@ const Landing = () => {
         })}
       </div>
 
-      <ModalVideo item={selectedItem} onClose={() => setSelectedItem(null)} />
+      <ModalVideo item={selectedVideo} onClose={() => setSelectedVideo(null)} />
+      <ModalImage item={selectedImage} onClose={() => setSelectedImage(null)} />
     </div>
   );
 };
