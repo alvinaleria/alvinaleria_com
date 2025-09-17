@@ -1,12 +1,8 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Layout } from 'react-admin';
 
-const DefaultLayout = () => (
-    <Card>
-        <CardContent>
-            <Typography variant="h5">Welcome to the Admin Dashboard</Typography>
-            {/* Add widgets or stats here */}
-        </CardContent>
-    </Card>
-);
+const DefaultLayout = (props: any) => {
+    return <Layout {...props} />;
+};
 
 export default DefaultLayout;
+
