@@ -4,15 +4,19 @@ import { Route } from "react-router";
 //Utility
 import DataProvider from "../utils/DataProvider";
 
+//Layout
+import SmartLayout from '../layout/SmartLayout';
+import DefaultLayout from '../layout/DefaultLayout';
+
 import { CampaignList, CampaignCreate, CampaignEdit } from '../models/Campaign';
 import { CreativeList, CreativeCreate, CreativeEdit } from '../models/Creative';
-import Preview from '../pages/Preview';
+import Landing from '../pages/Landing';
 import Test from '../pages/Test';
 
 const AdminApp = () => (
-  <Admin dataProvider={DataProvider}>
+  <Admin dashboard={Landing} layout={SmartLayout} dataProvider={DataProvider}>
     <CustomRoutes noLayout>
-      <Route path="/preview" element={<Preview />} />
+      <Route path="/admin" element={<DefaultLayout />} />
       <Route path="/test" element={<Test />} />
     </CustomRoutes>
     <Resource name="campaigns" list={CampaignList} create={CampaignCreate} edit={CampaignEdit} recordRepresentation="name" />

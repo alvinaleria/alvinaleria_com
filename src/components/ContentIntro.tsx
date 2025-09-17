@@ -1,16 +1,16 @@
 
 import { useRef, useEffect, useState } from "react"
 import  AnimatedHeart from './AnimatedHeart';
-import  IntroCopy from './IntroCopy';
+import  CopyIntro from './CopyIntro';
 
-const IntroContent = () => {
+const ContentIntro = () => {
   return (
     
     <div className="w-full h-screen flex flex-col md:flex-row relative z-10">
       
       {/* Column 1 / Row 1 */}
       <div className="w-full md:w-1/2 h-[75%] md:h-full flex items-center justify-center overflow-hidden">
-        <IntroCopy />
+        <CopyIntro />
       </div>
 
       {/* Column 2 / Row 2 */}
@@ -25,4 +25,4 @@ const IntroContent = () => {
 
 };
 
-export default IntroContent;
+export default ContentIntro;

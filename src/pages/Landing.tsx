@@ -3,11 +3,12 @@ import { useRef, useState, useEffect } from 'react';
 import { easeOut, easeInOut, motion, AnimatePresence, Variants } from "framer-motion";
 
 import FingerPrintBackground from '../layout/FingerPrintBackground';
-import IntroContent from '../components/IntroContent';
-import WorksContent from '../components/WorksContent';
-import BannerContent from '../components/BannerContent';
+import ContentIntro from '../components/ContentIntro';
+import ContentWorks from '../components/ContentWorks';
+import ContentBanners from '../components/ContentBanners';
+import ContentVideos from '../components/ContentVideos';
 
-import { ThumbnailItem } from "../components/BannerContent";
+import { ThumbnailItem } from "../components/ContentBanners";
 
 const extraItems = [
   "Bonus Tip: Stay hydrated!",
@@ -34,11 +35,11 @@ const generatePages = (cycle: number) => {
   const basePages = [
     { id: 1, color: "bg-red-500", content: "intro", background: "finger" },
     { id: 2, color: "bg-black", content: "works"},
-    { id: 3, color: "bg-green-500", content: "banner", extra: rotatedExtras[0], background: "swirl" },
-    { id: 4, color: "bg-yellow-300", content: "Page 4", background: "waves" },
-    { id: 5, color: "bg-purple-500", content: "Page 5", extra: rotatedExtras[1] },
-    { id: 6, color: "bg-pink-500", content: "Page 6", background: "particles" },
-    { id: 7, color: "bg-indigo-500", content: "Page 7", extra: rotatedExtras[2] },
+    { id: 3, color: "bg-[#e5cc96]", content: "banner", extra: rotatedExtras[0]},
+    { id: 4, color: "bg-[#e5cc96]", content: "videos", extra: rotatedExtras[1] },
+    { id: 5, color: "bg-purple-500", content: "Page 5"  },
+    { id: 6, color: "bg-pink-500", content: "Page 6", extra: rotatedExtras[3] },
+    { id: 7, color: "bg-indigo-500", content: "Page 7", extra: rotatedExtras[4] },
     { id: 8, color: "bg-black", content: "Page 8", background: "zoom" },
   ];
 
@@ -195,7 +196,7 @@ const Modal: React.FC<ModalProps> = ({ item, onClose }) => {
   );
 };
 
-const Preview = () => {
+const Landing = () => {
   const parentRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState(() => generatePages(0));
   const [cycle, setCycle] = useState(1);
@@ -214,11 +215,13 @@ const Preview = () => {
   const getContentComponent = (type: string) => {
     switch (type) {
       case "intro":
-        return <IntroContent />;
+        return <ContentIntro />;
       case "works":
-        return <WorksContent />;
+        return <ContentWorks />;
       case "banner":
-        return <BannerContent setSelectedItem={setSelectedItem} />;
+        return <ContentBanners setSelectedItem={setSelectedItem} />;
+      case "videos":
+        return <ContentVideos setSelectedItem={setSelectedItem} />;
       default:
         return <div className="p-8 text-white text-2xl">{type}</div>;
     }
@@ -304,4 +307,4 @@ const Preview = () => {
   );
 };
 
-export default Preview;
+export default Landing;

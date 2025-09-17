@@ -9,7 +9,7 @@ type ThumbnailItem = {
   thumbnail: string;
 };
 
-type BannerContentProps = {
+type ThumbnailContentProps = {
   setSelectedItem: (item: ThumbnailItem | null) => void;
 };
 
@@ -122,13 +122,13 @@ const thumbnails = [
 ];
 
 
-const BannerContent: React.FC<BannerContentProps> = ({ setSelectedItem })  => {
+const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedItem })  => {
   return (
     <section className="px-4 py-4 max-w-7xl mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2">My Projects</h1>
-        <p className="text-gray-600 text-lg">
-          These are some of the things I've worked on over the past few years.
+      <div className="text-center mb-4">
+        <h1 className="font-arvo text-black text-3xl md:text-4xl font-bold mb-2">MOTION GRAPHICS</h1>
+        <p className="font-roboto text-gray-800 text-lg">
+          Social media has been a big part of our lives for the past decade. These short motion graphics are designed to be eye-catching and deliver a message quickly. 
         </p>
       </div>
 
@@ -152,5 +152,5 @@ const BannerContent: React.FC<BannerContentProps> = ({ setSelectedItem })  => {
   );
 };
 
-export default BannerContent;
+export default ContentVideos;
 export type { ThumbnailItem };
