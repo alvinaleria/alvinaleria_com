@@ -52,7 +52,7 @@ const modalVariants: Variants = {
 };
 
 type ModalProps = {
-  item: ThumbnailItem | null;
+  item: ImageThumbItem | null;
   onClose: () => void;
 };
 
