@@ -69,7 +69,7 @@ const ModalImage: React.FC<ModalProps> = ({ item, onClose }) => {
     }, overlayColors.length * 300 + 500);
   };
 
-  const openFullscreen = (ref: React.RefObject<HTMLImageElement>) => {
+  const openFullscreen = (ref: React.RefObject<HTMLImageElement | null>) => {
     if (ref.current) {
       if (ref.current.requestFullscreen) {
         ref.current.requestFullscreen();
