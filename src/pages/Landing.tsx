@@ -8,43 +8,69 @@ import ContentWorks from '../components/ContentWorks';
 import ContentBanners from '../components/ContentBanners';
 import ContentVideos from '../components/ContentVideos';
 import ContentEmails from '../components/ContentEmails';
+import ContentMaestro from '../components/ContentMaestro';
+import ContentGame1 from '../components/ContentGame1';
+import ContentGame2 from '../components/ContentGame2';
+import ContentLego from '../components/ContentLego';
+
 import ModalVideo from '../components/ModalVideo';
 import ModalImage from '../components/ModalImage';
 
 import { VideoThumbItem } from "../components/ContentBanners";
 import { ImageThumbItem } from "../components/ContentEmails";
 
-const extraItems = [
-  "Bonus Tip: Stay hydrated!",
-  "Did you know? Cats sleep 70% of their lives.",
-  "Quick Fact: The Eiffel Tower can grow in summer.",
-  "Reminder: Take breaks while working.",
-  "Fun Fact: Bananas are berries, but strawberries aren't.",
+
+const extraItems = (
+  setSelectedVideo: React.Dispatch<React.SetStateAction<VideoThumbItem | null>>,
+  setSelectedImage: React.Dispatch<React.SetStateAction<ImageThumbItem | null>>
+) => [
+  <ContentBanners setSelectedVideo={setSelectedVideo} />,
+  <ContentVideos setSelectedVideo={setSelectedVideo} />,
+  <ContentEmails setSelectedImage={setSelectedImage} />,
+  <ContentMaestro />,
+  <ContentGame1 />,
+  <ContentGame2 />,
+  <ContentLego />,
 ];
 
-const rotateExtras = (cycle: number) => {
-  const rotated = [...extraItems];
+
+const rotateExtras = (
+  cycle: number,
+  setSelectedVideo: React.Dispatch<React.SetStateAction<VideoThumbItem | null>>,
+  setSelectedImage: React.Dispatch<React.SetStateAction<ImageThumbItem | null>>
+) => {
+  const rotated = [...extraItems(setSelectedVideo, setSelectedImage)];
   for (let i = 0; i < cycle; i++) {
     const first = rotated.shift();
     if (first !== undefined) {
       rotated.push(first);
     }
   }
+
+  for (let i = rotated.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rotated[i], rotated[j]] = [rotated[j], rotated[i]];
+  }
+
   return rotated;
 };
 
-const generatePages = (cycle: number) => {
-  const rotatedExtras = rotateExtras(cycle);
+const generatePages = (
+  cycle: number,
+  setSelectedVideo: React.Dispatch<React.SetStateAction<VideoThumbItem | null>>,
+  setSelectedImage: React.Dispatch<React.SetStateAction<ImageThumbItem | null>>
+) => {
+  const rotatedExtras = rotateExtras(cycle, setSelectedVideo, setSelectedImage);
 
   const basePages = [
     { id: 1, color: "bg-red-500", content: "intro", background: "finger" },
     { id: 2, color: "bg-black", content: "works"},
-    { id: 3, color: "bg-[#e5cc96]", content: "banner", extra: rotatedExtras[0]},
-    { id: 4, color: "bg-[#e5cc96]", content: "videos", extra: rotatedExtras[1] },
-    { id: 5, color: "bg-purple-500", content: "Page 5"  },
-    { id: 6, color: "bg-pink-500", content: "emails", extra: rotatedExtras[3] },
-    { id: 7, color: "bg-indigo-500", content: "Page 7", extra: rotatedExtras[4] },
-    { id: 8, color: "bg-black", content: "Page 8", background: "zoom" },
+    { id: 3, color: "bg-blue-500", content: "banner", extra: rotatedExtras[0] },
+    { id: 4, color: "bg-yellow-500", content: "videos", extra: rotatedExtras[1] },
+    { id: 5, color: "bg-purple-500", content: "Middle Graphics" },
+    { id: 6, color: "bg-pink-500", content: "emails", extra: rotatedExtras[2] },
+    { id: 7, color: "bg-indigo-500", content: "Page 7", extra: rotatedExtras[3] },
+    { id: 8, color: "bg-black", content: "End Grpahics", background: "waves" },
   ];
 
   const timestamp = Date.now();
@@ -53,6 +79,7 @@ const generatePages = (cycle: number) => {
     key: `${page.id}-${timestamp}-${cycle}-${i}`,
   }));
 };
+
 
 const getBackgroundComponent = (type: string) => {
   switch (type) {
@@ -108,7 +135,7 @@ const Landing = () => {
       setViewportHeight(window.innerHeight);
     }
   }, []);
-
+ 
   const virtualizer = useVirtualizer({
     count: pages.length,
     getScrollElement: () => parentRef.current,
@@ -162,17 +189,7 @@ const Landing = () => {
                 {getBackgroundComponent(page.background ?? '')}
               </div>
 
-              {getContentComponent(page.content)}
-
-              <div className="absolute z-10">{page.extra}</div>
-              
-              {page.extra && (
-                <div className="relative z-10 w-full overflow-visible">
-                  <div className="text-xl text-white/80 whitespace-nowrap w-[150vw] -ml-[25vw]">
-                    {page.extra}
-                  </div>
-                </div>
-              )}
+              {page.extra ?? getContentComponent(page.content)}
             </div>
           );
         })}

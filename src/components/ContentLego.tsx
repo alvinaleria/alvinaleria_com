@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ContentMaestro = () => {
+const ContentLego = () => {
   return (
     <div className="p-8">
       {/* Huge Title */}
       <h1 className="text-6xl font-bold text-center mb-12">
-        MAESTRO - Custom CMS for Emails and OLA Banners
+        Lego Universe Landing Page
       </h1>
 
       {/* Video and Copy Side by Side */}
@@ -36,4 +36,4 @@ const ContentMaestro = () => {
   );
 };
 
-export default ContentMaestro;
+export default ContentLego;

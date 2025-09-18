@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ContentMaestro = () => {
+const ContentGame1 = () => {
   return (
     <div className="p-8">
       {/* Huge Title */}
       <h1 className="text-6xl font-bold text-center mb-12">
-        MAESTRO - Custom CMS for Emails and OLA Banners
+        H&R Block MORE ZERO Catch Game
       </h1>
 
       {/* Video and Copy Side by Side */}
@@ -26,6 +26,7 @@ const ContentMaestro = () => {
         {/* Copy Section */}
         <div className="flex-1">
           <p className="text-lg leading-relaxed">
+            https://goo.gl/Vt5JwQ
             Discover the future of innovation with our cutting-edge solutions.
             Our platform empowers you to achieve more, faster and smarter.
             Whether you're a creator, a builder, or a dreamer — we’re here to help you thrive.
@@ -36,4 +37,4 @@ const ContentMaestro = () => {
   );
 };
 
-export default ContentMaestro;
+export default ContentGame1;
