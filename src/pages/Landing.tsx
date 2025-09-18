@@ -98,7 +98,7 @@ const getBackgroundComponent = (type: string) => {
 
 const Landing = () => {
   const parentRef = useRef<HTMLDivElement>(null);
-  const [pages, setPages] = useState(() => generatePages(0));
+  const [pages, setPages] = useState(() => generatePages(0, setSelectedVideo, setSelectedImage));
   const [cycle, setCycle] = useState(1);
   const [viewportHeight, setViewportHeight] = useState(600); // SSR-safe fallback
 
