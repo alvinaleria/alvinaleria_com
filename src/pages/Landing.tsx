@@ -98,9 +98,17 @@ const getBackgroundComponent = (type: string) => {
 
 const Landing = () => {
   const parentRef = useRef<HTMLDivElement>(null);
-  const [pages, setPages] = useState(() => generatePages(0, setSelectedVideo, setSelectedImage));
+
+  const [selectedVideo, setSelectedVideo] = useState<VideoThumbItem | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageThumbItem | null>(null);
+
+  const [pages, setPages] = useState<any[]>([]); // Use correct type if you have one
   const [cycle, setCycle] = useState(1);
   const [viewportHeight, setViewportHeight] = useState(600); // SSR-safe fallback
+
+  useEffect(() => {
+    setPages(generatePages(0, setSelectedVideo, setSelectedImage));
+  }, [setSelectedVideo, setSelectedImage]);
 
   type ThumbnailItem = {
     id: number;
@@ -109,9 +117,6 @@ const Landing = () => {
     videoUrl: string;
     thumbnail: string;
   };
-
-  const [selectedVideo, setSelectedVideo] = useState<VideoThumbItem | null>(null);
-  const [selectedImage, setSelectedImage] = useState<ImageThumbItem | null>(null);
 
   const getContentComponent = (type: string) => {
     switch (type) {
