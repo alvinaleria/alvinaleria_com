@@ -156,7 +156,7 @@ const Landing = () => {
     const distanceFromBottom = virtualizer.getTotalSize() - (lastItem.start + lastItem.size);
 
     if (distanceFromBottom < viewportHeight * 2) {
-      const newPages = generatePages(cycle);
+      const newPages = generatePages(cycle, setSelectedVideo, setSelectedImage);
       setPages((prev) => [...prev, ...newPages]);
       setCycle((prev) => prev + 1);
     } 
