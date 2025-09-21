@@ -8,24 +8,23 @@ const overlayColors = ["bg-blue-300", "bg-pink-300", "bg-black"];
 const overlayVariants: Variants = {
   hidden: { scale: 0, opacity: 0 },
   visible: (i: number) => ({
-    originY: 0,
-    originX: 0,
-    scale: 1,
+    transformOrigin: '50% 50%',
+    scale: 1.5,
+    rotate: 45,
     opacity: 1,
     transition: {
-      delay: i * 0.2,
-      duration: 1.2,
+      delay: i * 0.1,
+      duration: 1,
       ease: easeOut,
     },
   }),
   exit: (i: number) => ({
-    originY: 0,
-    originX: 0,
+    transformOrigin: '50% 50%',
     scale: 0,
-    opacity: 0,
+    opacity: 1,
     transition: {
-      delay: (overlayColors.length - i - 1) * 0.2,
-      duration: 1.2,
+      delay: (overlayColors.length - i - 1) * 0.1,
+      duration: 1,
       ease: easeInOut,
     },
   }),
@@ -38,7 +37,7 @@ const modalVariants: Variants = {
     originX: 0,
     scale: 1,
     opacity: 1,
-    transition: { delay: 1.8, duration: 0.5, ease: easeOut },
+    transition: { delay: 1, duration: 0.5, ease: easeOut },
   },
   exit: {
     originY: 0,

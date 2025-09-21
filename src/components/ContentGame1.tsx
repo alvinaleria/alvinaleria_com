@@ -1,37 +1,29 @@
 import React from 'react';
 
+const content = [
+  {
+    id: 1,
+    title: "Belize Tourism Board - Escape from Boring Beach",
+    description: "http://joystickinteractive.celtra.com/preview/20a474af Discover the future of innovation with our cutting-edge solutions.Our platform empowers you to achieve more, faster and smarter. Whether you're a creator, a builder, or a dreamer — we’re here to help you thrive.",
+    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    thumbnail: "apple_news1_starbucks.jpg",
+  },
+];
+
 const ContentGame1 = () => {
+  const { title, videoUrl } = content[0];
+
   return (
-    <div className="p-8">
-      {/* Huge Title */}
-      <h1 className="text-6xl font-bold text-center mb-12">
-        Belize Tourism Board - Escape from Boring Beach
-      </h1>
+    <div className="flex flex-col justify-center items-center min-h-screen p-8 text-center">
+      <h1 className="text-4xl md:text-6xl font-bold mb-12">{title}</h1>
 
-      {/* Video and Copy Side by Side */}
-      <div className="flex flex-col lg:flex-row items-start gap-8">
-        {/* Video Section */}
-        <div className="flex-1">
-          <div className="relative w-full pb-[56.25%]"> {/* 16:9 Aspect Ratio */}
-            <video
-              className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-              controls
-              poster="https://via.placeholder.com/1280x720.png?text=Video+Preview"
-            >
-              <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="videor does not support the video tag." />
-            </video>
-          </div>
-        </div>
-
-        {/* Copy Section */}
-        <div className="flex-1">
-          <p className="text-lg leading-relaxed">
-            http://joystickinteractive.celtra.com/preview/20a474af
-            Discover the future of innovation with our cutting-edge solutions.
-            Our platform empowers you to achieve more, faster and smarter.
-            Whether you're a creator, a builder, or a dreamer — we’re here to help you thrive.
-          </p>
-        </div>
+      <div className="w-full md:w-1/2 aspect-video">
+        <video
+          className="w-full h-full object-cover rounded-lg shadow-md"
+          controls
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
       </div>
     </div>
   );

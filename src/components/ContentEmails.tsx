@@ -154,7 +154,7 @@ const ContentEmails: React.FC<ThumbnailContentProps> = ({ setSelectedImage })  =
   const shuffledThumbnails = shuffleArray(thumbnails).slice(0, limit);
 
   return (
-    <section className="px-4 py-4 max-w-7xl mx-auto">
+    <section className="px-4 py-8 max-w-7xl mx-auto">
       <div className="text-center mb-4">
         <h1 className="font-arvo text-black text-3xl md:text-4xl font-bold mb-2">Email Template</h1>
         <p className="font-roboto text-gray-800 text-lg">
@@ -166,7 +166,7 @@ const ContentEmails: React.FC<ThumbnailContentProps> = ({ setSelectedImage })  =
         {shuffledThumbnails.map((thumb) => (
           <div
               key={thumb.id}
-              className="w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
+              className="w-[80%] md:w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
               onClick={() => setSelectedImage(thumb)}
             >
 

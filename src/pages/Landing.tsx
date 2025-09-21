@@ -63,7 +63,7 @@ const generatePages = (
   const rotatedExtras = rotateExtras(cycle, setSelectedVideo, setSelectedImage);
 
   const basePages = [
-    { id: 1, color: "bg-red-500", content: "intro", background: "finger" },
+    { id: 1, color: "bg-[#b93c31]", content: "intro", background: "finger" },
     { id: 2, color: "bg-black", content: "works"},
     { id: 3, color: "bg-blue-500", content: "banner", extra: rotatedExtras[0] },
     { id: 4, color: "bg-yellow-500", content: "videos", extra: rotatedExtras[1] },

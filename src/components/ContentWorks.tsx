@@ -53,11 +53,15 @@ const WorksContent = () => {
   useLayoutEffect(() => {
     gsap.fromTo(
       ".word",
-      { y: 20 },
+      { y: 40,
+        opacity: .1,
+       },
       {
         y: 0,
+        opacity: .2,
         duration: 0.6,
         stagger: 0.03,
+        delay: 1,
         ease: "power2.out"
       }
     );
@@ -189,7 +193,7 @@ const WorksContent = () => {
               return (
                 <span
                   key={`${lineIndex}-${wordIndex}`}
-                  className="word opacity-20 hover:opacity-80 transition-opacity duration-300 inline-block mr-6"
+                  className="word opacity-20 hover:opacity-60 transition-opacity duration-300 inline-block mr-6"
                 >
                   {word}
                 </span>
@@ -198,6 +202,17 @@ const WorksContent = () => {
           </div>
         ))}
       </div>
+      {/* Top Gradient */}
+        <div className="absolute top-0 left-0 w-full h-32 z-10"
+            style={{
+            background: "linear-gradient(to bottom, black, transparent)"
+            }} />
+
+        {/* Bottom Gradient */}
+        <div className="absolute bottom-0 left-0 w-full h-32 z-10"
+            style={{
+            background: "linear-gradient(to top, black, transparent)"
+            }} />
     </section>
   );
 };

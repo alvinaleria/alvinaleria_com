@@ -137,7 +137,7 @@ const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  =
   const shuffledThumbnails = shuffleArray(thumbnails).slice(0, limit);
 
   return (
-    <section className="px-4 py-4 max-w-7xl mx-auto">
+    <section className="px-4 py-8 max-w-7xl mx-auto">
       <div className="text-center mb-4">
         <h1 className="font-arvo text-black text-3xl md:text-4xl font-bold mb-2">MOTION GRAPHICS</h1>
         <p className="font-roboto text-gray-800 text-lg">
@@ -149,7 +149,7 @@ const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  =
         {shuffledThumbnails.map((thumb) => (
           <div
               key={thumb.id}
-              className="w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
+              className="w-[80%] md:w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
               onClick={() => setSelectedVideo(thumb)}
             >
 
