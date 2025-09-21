@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants, easeOut, easeInOut } from 'framer-motion';
 import { ImageThumbItem } from './ContentEmails';
 
-const overlayColors = ["bg-blue-300", "bg-pink-300", "bg-black"];
+const overlayColors = ["bg-[#00a9e3]", "bg-[#df147b]", "bg-black"];
 
 const overlayVariants: Variants = {
   hidden: { scale: 0, opacity: 0 },
@@ -107,10 +107,11 @@ const ModalImage: React.FC<ModalProps> = ({ item, onClose }) => {
           ))}
 
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center"
+            className="fixed inset-0 z-50 flex items-center justify-center cursor-pointer"
             initial="hidden"
             animate="visible"
             exit="exit"
+            onClick={handleClose}
           >
             <motion.div
               className="relative bg-white rounded-lg shadow-lg w-[63%] md:w-[525px] min-h-[300px] md:min-h-[500px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
@@ -121,7 +122,7 @@ const ModalImage: React.FC<ModalProps> = ({ item, onClose }) => {
             >
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 text-black text-2xl font-bold hover:text-gray-600 z-60"
+                className="absolute top-4 right-4 text-black text-2xl font-bold hover:text-gray-600 z-60 cursor-pointer"
               >
                 &times;
               </button>

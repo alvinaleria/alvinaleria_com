@@ -1,9 +1,8 @@
-// components/Modal.tsx
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants, easeOut, easeInOut } from 'framer-motion';
 import { VideoThumbItem } from './ContentBanners'; // adjust path if needed
 
-const overlayColors = ["bg-blue-300", "bg-pink-300", "bg-black"];
+const overlayColors = ["bg-[#00a9e3]", "bg-[#df147b]", "bg-black"];
 
 const overlayVariants: Variants = {
   hidden: { scale: 0, opacity: 0 },
@@ -23,7 +22,7 @@ const overlayVariants: Variants = {
     scale: 0,
     opacity: 1,
     transition: {
-      delay: (overlayColors.length - i - 1) * 0.1,
+      delay: (overlayColors.length - i - 1) * 0.05,
       duration: 1,
       ease: easeInOut,
     },
@@ -58,6 +57,7 @@ type ModalProps = {
 
 const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
   const [isExiting, setIsExiting] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleClose = () => {
     setIsExiting(true);
@@ -65,6 +65,21 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
       onClose();
       setIsExiting(false);
     }, overlayColors.length * 300 + 500);
+  };
+
+  const handleFullscreen = () => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if ((video as any).webkitRequestFullscreen) {
+        (video as any).webkitRequestFullscreen();
+      } else if ((video as any).mozRequestFullScreen) {
+        (video as any).mozRequestFullScreen();
+      } else if ((video as any).msRequestFullscreen) {
+        (video as any).msRequestFullscreen();
+      }
+    }
   };
 
   return (
@@ -94,10 +109,11 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
           ))}
 
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center"
+            className="fixed inset-0 z-50 flex items-center justify-center cursor-pointer"
             initial="hidden"
             animate="visible"
             exit="exit"
+            onClick={handleClose}
           >
             <motion.div
               className="relative md:left-[250px] bg-white rounded-lg shadow-lg w-[63%] md:w-[525px] min-h-[300px] md:min-h-[500px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
@@ -108,16 +124,21 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
             >
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 text-black text-2xl font-bold hover:text-gray-600 z-60"
+                className="absolute top-4 right-4 text-black text-2xl font-bold hover:text-gray-600 z-60 cursor-pointer"
               >
                 &times;
               </button>
 
-              <div className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute bottom-[-50%] left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0">
+              <div
+                className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute bottom-[-50%] left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
+                onClick={handleFullscreen}
+              >
                 <video
+                  ref={videoRef}
                   src={item?.videoUrl}
-                  controls
-                  className="w-full border-4 border-yellow-400 rounded-lg"
+                  autoPlay
+                  muted
+                  className="w-full border-4 border-yellow-400 rounded-lg cursor-pointer"
                 />
               </div>
 
