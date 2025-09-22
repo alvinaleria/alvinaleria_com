@@ -174,7 +174,7 @@ const thumbnails = [
     title: "Duracell",
     description: "This ad for Duracell incorporates video as well as masking allowing the user to drag and arrow and move between 2 images. This was animated in GSAP and served in the TrueX platform.",
     videoUrl: "videos/truex3_duracell.mp4",
-    thumbnail: "images/celtrtruex3_duracella3_macys.jpg",
+    thumbnail: "images/truex3_duracell.jpg",
   },
   {
     id: 24,

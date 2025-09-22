@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants, easeOut, easeInOut } from 'framer-motion';
-import { VideoThumbItem } from './ContentBanners'; // adjust path if needed
+import frameImage from '../assets/frame.png';
+import { VideoThumbItem } from './ContentBanners';
 
 const overlayColors = ["bg-[#00a9e3]", "bg-[#df147b]", "bg-black"];
 
@@ -109,14 +110,14 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
           ))}
 
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center cursor-pointer"
+            className="fixed inset-0 z-40 flex items-center justify-center cursor-pointer "
             initial="hidden"
             animate="visible"
             exit="exit"
             onClick={handleClose}
           >
             <motion.div
-              className="relative md:left-[250px] bg-white rounded-lg shadow-lg w-[63%] md:w-[525px] min-h-[300px] md:min-h-[500px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
+              className="relative md:left-[250px] bg-[#233445] rounded-md shadow-lg w-[63%] md:w-[525px] min-h-[400px] md:min-h-[550px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
               variants={modalVariants}
               initial="hidden"
               animate="visible"
@@ -124,13 +125,13 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
             >
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 text-black text-2xl font-bold hover:text-gray-600 z-60 cursor-pointer"
+                className="font-arvo absolute top-1 right-4 text-yellow-600 text-6xl font-bold hover:text-grey-600 z-60 cursor-pointer"
               >
                 &times;
               </button>
 
               <div
-                className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute bottom-[-50%] left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
+                className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
                 onClick={handleFullscreen}
               >
                 <video
@@ -138,13 +139,21 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   src={item?.videoUrl}
                   autoPlay
                   muted
-                  className="w-full border-4 border-yellow-400 rounded-lg cursor-pointer"
+                  className="w-full h-full -ml-[15px] md:-ml-[45px] object-cover rounded-lg transform origin-center scale-72"
+                />
+                <img
+                  src={frameImage.src}
+                  alt="Frame"
+                  width="100%"
+                  height="100%"
+                  className="absolute"
                 />
               </div>
 
+
               <div className="w-full md:w-[60%] pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
-                <h2 className="text-3xl text-gray-700 font-bold mb-4">{item?.title}</h2>
-                <p className="text-lg text-gray-700">{item?.description}</p>
+                <h2 className="font-arvo text-2xl md:text-3xl text-white font-bold mb-4">{item?.title}</h2>
+                <p className="font-roboto text-sm mt-[250px] md:mt-[0] text-white">{item?.description}</p>
               </div>
             </motion.div>
           </motion.div>
