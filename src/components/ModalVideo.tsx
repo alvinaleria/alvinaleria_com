@@ -125,14 +125,13 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
             >
               <button
                 onClick={handleClose}
-                className="font-arvo absolute top-1 right-4 text-yellow-600 text-6xl font-bold hover:text-grey-600 z-60 cursor-pointer"
+                className="font-arvo absolute top-1 right-4 text-yellow-600 text-4xl font-bold hover:text-grey-600 z-60 cursor-pointer"
               >
                 &times;
               </button>
 
               <div
                 className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
-                onClick={handleFullscreen}
               >
                 <video
                   ref={videoRef}
@@ -147,13 +146,14 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   width="100%"
                   height="100%"
                   className="absolute"
+                  onClick={handleFullscreen}
                 />
               </div>
 
 
-              <div className="w-full md:w-[60%] pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
-                <h2 className="font-arvo text-2xl md:text-3xl text-white font-bold mb-4">{item?.title}</h2>
-                <p className="font-roboto text-sm mt-[250px] md:mt-[0] text-white">{item?.description}</p>
+              <div className="w-full md:w-[60%] flex grow flex-col justify-between pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
+                <h2 className="-mt-6 md:-mt-0 font-arvo text-2xl md:text-3xl text-white font-bold mb-4">{item?.title}</h2>
+                <p className="-mb-10 md:-mb-0 font-roboto text-sm text-white">{item?.description}</p>
               </div>
             </motion.div>
           </motion.div>
