@@ -110,11 +110,10 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
           ))}
 
           <motion.div
-            className="fixed inset-0 z-40 flex items-center justify-center cursor-pointer "
+            className="fixed inset-0 z-40 flex items-center justify-center"
             initial="hidden"
             animate="visible"
             exit="exit"
-            onClick={handleClose}
           >
             <motion.div
               className="relative md:left-[250px] bg-[#233445] rounded-md shadow-lg w-[63%] md:w-[525px] min-h-[400px] md:min-h-[550px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
@@ -131,7 +130,8 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
               </button>
 
               <div
-                className="w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
+                className="cursor-pointer w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
+                onClick={handleFullscreen}
               >
                 <video
                   ref={videoRef}
@@ -145,8 +145,8 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   alt="Frame"
                   width="100%"
                   height="100%"
-                  className="absolute"
-                  onClick={handleFullscreen}
+                  className="absolute "
+                  
                 />
               </div>
 
