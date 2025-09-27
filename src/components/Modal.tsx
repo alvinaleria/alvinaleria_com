@@ -128,7 +128,6 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
 
               <div
                 className="cursor-pointer w-[130%] md:w-[240%] md:-ml-[120%] -mt-10 md:-mt-0 z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
-                onClick={handleFullscreen}
               >
                 <video
                   ref={videoRef}
@@ -137,16 +136,17 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   muted
                   loop
                   playsInline
-                  controls={isMobile}
+                  controls={false}
                   className="-ml-[15px] md:-ml-[45px] object-cover w-3xs md:w-150"
+                  onClick={handleFullscreen}
                 />
                 <img
                   src={frameImage.src}
                   alt="Frame"
                   width="100%"
                   height="100%"
-                  className="absolute pointer-events-none"
-                  
+                  className="absolute"
+                  onClick={handleFullscreen}
                 />
               </div>
 
