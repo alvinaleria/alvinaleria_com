@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants, easeOut, easeInOut } from 'framer-motion';
 import frameImage from '../assets/frame.png';
 import { VideoThumbItem } from './ContentBanners';
+import { isMobile } from "react-device-detect";
 
 const overlayColors = ["bg-[#00a9e3]", "bg-[#df147b]", "bg-black"];
 
@@ -132,10 +133,11 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                 <video
                   ref={videoRef}
                   src={item?.videoUrl}
-                  autoPlay
+                  autoPlay={!isMobile}
                   muted
                   loop
-                  controls={false}
+                  playsInline
+                  controls={isMobile}
                   className="-ml-[15px] md:-ml-[45px] object-cover w-3xs md:w-150"
                 />
                 <img
