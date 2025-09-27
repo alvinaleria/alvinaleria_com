@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
 import { isMobile } from "react-device-detect";
-import ModalImage from './ModalImage';
 
 type ThumbItem = {
   id: number;
