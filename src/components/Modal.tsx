@@ -136,8 +136,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   autoPlay
                   muted
                   loop
-                  playsInline
-                  controls={false}
+                  controls={isMobile}
                   className="-ml-[15px] md:-ml-[45px] object-cover w-3xs md:w-150"
                   onClick={handleFullscreen}
                 />
