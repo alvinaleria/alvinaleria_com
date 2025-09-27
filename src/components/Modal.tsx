@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, Variants, easeOut, easeInOut } from 'framer-motion';
 import frameImage from '../assets/frame.png';
-import { VideoThumbItem } from './ContentBanners';
+import { ThumbItem } from './ContentBanners';
 import { isMobile } from "react-device-detect";
 
 const overlayColors = ["bg-[#00a9e3]", "bg-[#df147b]", "bg-black"];
@@ -53,7 +53,7 @@ const modalVariants: Variants = {
 };
 
 type ModalProps = {
-  item: VideoThumbItem | null;
+  item: ThumbItem | null;
   onClose: () => void;
 };
 

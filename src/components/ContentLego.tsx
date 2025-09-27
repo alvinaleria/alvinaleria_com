@@ -1,7 +1,7 @@
 import React from 'react';
 import frameImage from '../assets/frame.png';
 
-type VideoThumbItem = {
+type ThumbItem = {
   id: number;
   title: string;
   description: string;
@@ -10,7 +10,7 @@ type VideoThumbItem = {
 };
 
 type ThumbnailContentProps = {
-  setSelectedVideo: (item: VideoThumbItem | null) => void;
+  setSelected: (item: ThumbItem | null) => void;
 };
 
 const content = [
@@ -23,19 +23,19 @@ const content = [
   },
 ];
 
-const ContentLego : React.FC<ThumbnailContentProps> = ({ setSelectedVideo }) => {
+const ContentLego : React.FC<ThumbnailContentProps> = ({ setSelected }) => {
   const { title, videoUrl } = content[0];
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen p-8 text-center">
       <h1 
         className="font-arvo text-4xl md:text-6xl font-bold -mb-3 md:-mb-6 text-shadow-[5px_5px_0_black,-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black] cursor-pointer"
-        onClick={() => setSelectedVideo(content[0])}
+        onClick={() => setSelected(content[0])}
       >{title}</h1>
 
       <div 
         className="relative w-full md:w-1/2 aspect-video flex justify-center items-center cursor-pointer"
-        onClick={() => setSelectedVideo(content[0])}
+        onClick={() => setSelected(content[0])}
       >
         <video
           className="absolute mt-1 mr-5 w-3xs md:w-2xl h-3xs md:h-2xl object-cover "
@@ -59,4 +59,4 @@ const ContentLego : React.FC<ThumbnailContentProps> = ({ setSelectedVideo }) => 
 };
 
 export default ContentLego;
-export type { VideoThumbItem };
+export type { ThumbItem };

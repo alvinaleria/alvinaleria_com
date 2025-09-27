@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { isMobile } from "react-device-detect";
 
-type VideoThumbItem = {
+type ThumbItem = {
   id: number;
   title: string;
   description: string;
@@ -11,7 +11,7 @@ type VideoThumbItem = {
 };
 
 type ThumbnailContentProps = {
-  setSelectedVideo: (item: VideoThumbItem | null) => void;
+  setSelected: (item: ThumbItem | null) => void;
 };
 
 const thumbnails = [
@@ -132,7 +132,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  => {
+const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelected })  => {
   const limit = isMobile ? 8 : 15;
   const shuffledThumbnails = shuffleArray(thumbnails).slice(0, limit);
 
@@ -147,7 +147,7 @@ const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  =
           <div
               key={thumb.id}
               className="w-[80%] md:w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
-              onClick={() => setSelectedVideo(thumb)}
+              onClick={() => setSelected(thumb)}
             >
 
             <img
@@ -163,4 +163,4 @@ const ContentVideos: React.FC<ThumbnailContentProps> = ({ setSelectedVideo })  =
 };
 
 export default ContentVideos;
-export type { VideoThumbItem };
+export type { ThumbItem };

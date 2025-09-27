@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { isMobile } from "react-device-detect";
 
-type VideoThumbItem = {
+type ThumbItem = {
   id: number;
   title: string;
   description: string;
@@ -11,7 +11,7 @@ type VideoThumbItem = {
 };
 
 type ThumbnailContentProps = {
-  setSelectedVideo: (item: VideoThumbItem | null) => void;
+  setSelected: (item: ThumbItem | null) => void;
 };
 
 const thumbnails = [
@@ -226,7 +226,7 @@ const thumbnails = [
     thumbnail: "images/celtra7_nissin.jpg",
   },
   {
-    id: 30,
+    id: 31,
     title: "Bic Flex",
     description: "This expanding ad for Bic Flex incorporates a micro-site design with each interest point in the razor opening a new page with infor about it's features. This was animated and served in Celtra.",
     videoUrl: "videos/celtra8_bicflex.mp4",
@@ -244,7 +244,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-const ContentBanners: React.FC<ThumbnailContentProps> = ({ setSelectedVideo }) => {
+const ContentBanners: React.FC<ThumbnailContentProps> = ({ setSelected }) => {
   const limit = isMobile ? 8 : 15;
   const shuffledThumbnails = shuffleArray(thumbnails).slice(0, limit);
   
@@ -259,7 +259,7 @@ const ContentBanners: React.FC<ThumbnailContentProps> = ({ setSelectedVideo }) =
           <div
             key={thumb.id}
             className="w-[80%] md:w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
-            onClick={() => setSelectedVideo(thumb)}
+            onClick={() => setSelected(thumb)}
           >
             <img
               src={`/${thumb.thumbnail}`}
@@ -274,5 +274,5 @@ const ContentBanners: React.FC<ThumbnailContentProps> = ({ setSelectedVideo }) =
 };
 
 export default ContentBanners;
-export type { VideoThumbItem };
+export type { ThumbItem };
 

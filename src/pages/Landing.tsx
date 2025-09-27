@@ -1,6 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useRef, useState, useEffect } from 'react';
-import { easeOut, easeInOut, motion, AnimatePresence, Variants } from "framer-motion";
 
 import FingerPrintBackground from '../layout/FingerPrintBackground';
 import ContentIntro from '../components/ContentIntro';
@@ -13,33 +12,29 @@ import ContentGame1 from '../components/ContentGame1';
 import ContentGame2 from '../components/ContentGame2';
 import ContentLego from '../components/ContentLego';
 
-import ModalVideo from '../components/ModalVideo';
-import ModalImage from '../components/ModalImage';
+import Modal from '../components/Modal';
 
-import { VideoThumbItem } from "../components/ContentBanners";
-import { ImageThumbItem } from "../components/ContentEmails";
+import { ThumbItem } from "../components/ContentBanners";
 
 
 const extraItems = (
-  setSelectedVideo: React.Dispatch<React.SetStateAction<VideoThumbItem | null>>,
-  setSelectedImage: React.Dispatch<React.SetStateAction<ImageThumbItem | null>>
+  setSelected: React.Dispatch<React.SetStateAction<ThumbItem | null>>
 ) => [
-  <ContentBanners setSelectedVideo={setSelectedVideo} />,
-  <ContentVideos setSelectedVideo={setSelectedVideo} />,
-  <ContentEmails setSelectedImage={setSelectedImage} />,
-  <ContentMaestro setSelectedVideo={setSelectedVideo} />,
-  <ContentGame1 setSelectedVideo={setSelectedVideo} />,
-  <ContentGame2 setSelectedVideo={setSelectedVideo} />,
-  <ContentLego setSelectedVideo={setSelectedVideo} />,
+  <ContentBanners setSelected={setSelected} />,
+  <ContentVideos setSelected={setSelected} />,
+  <ContentEmails setSelected={setSelected} />,
+  <ContentMaestro setSelected={setSelected} />,
+  <ContentGame1 setSelected={setSelected} />,
+  <ContentGame2 setSelected={setSelected} />,
+  <ContentLego setSelected={setSelected} />,
 ];
 
 
 const rotateExtras = (
   cycle: number,
-  setSelectedVideo: React.Dispatch<React.SetStateAction<VideoThumbItem | null>>,
-  setSelectedImage: React.Dispatch<React.SetStateAction<ImageThumbItem | null>>
+  setSelected: React.Dispatch<React.SetStateAction<ThumbItem | null>>
 ) => {
-  const rotated = [...extraItems(setSelectedVideo, setSelectedImage)];
+  const rotated = [...extraItems(setSelected)];
   for (let i = 0; i < cycle; i++) {
     const first = rotated.shift();
     if (first !== undefined) {
@@ -57,10 +52,9 @@ const rotateExtras = (
 
 const generatePages = (
   cycle: number,
-  setSelectedVideo: React.Dispatch<React.SetStateAction<VideoThumbItem | null>>,
-  setSelectedImage: React.Dispatch<React.SetStateAction<ImageThumbItem | null>>
+  setSelected: React.Dispatch<React.SetStateAction<ThumbItem | null>>
 ) => {
-  const rotatedExtras = rotateExtras(cycle, setSelectedVideo, setSelectedImage);
+  const rotatedExtras = rotateExtras(cycle, setSelected);
 
   const basePages = [
     { id: 1, color: "bg-[#b93c31]", content: "intro", background: "finger" },
@@ -99,16 +93,15 @@ const getBackgroundComponent = (type: string) => {
 const Landing = () => {
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const [selectedVideo, setSelectedVideo] = useState<VideoThumbItem | null>(null);
-  const [selectedImage, setSelectedImage] = useState<ImageThumbItem | null>(null);
+  const [selectedVideo, setSelected] = useState<ThumbItem | null>(null);
 
   const [pages, setPages] = useState<any[]>([]); // Use correct type if you have one
   const [cycle, setCycle] = useState(1);
   const [viewportHeight, setViewportHeight] = useState(600); // SSR-safe fallback
 
   useEffect(() => {
-    setPages(generatePages(0, setSelectedVideo, setSelectedImage));
-  }, [setSelectedVideo, setSelectedImage]);
+    setPages(generatePages(0, setSelected));
+  }, [setSelected]);
 
   type ThumbnailItem = {
     id: number;
@@ -155,7 +148,7 @@ const Landing = () => {
     const distanceFromBottom = virtualizer.getTotalSize() - (lastItem.start + lastItem.size);
 
     if (distanceFromBottom < viewportHeight * 2) {
-      const newPages = generatePages(cycle, setSelectedVideo, setSelectedImage);
+      const newPages = generatePages(cycle, setSelected);
       setPages((prev) => [...prev, ...newPages]);
       setCycle((prev) => prev + 1);
     } 
@@ -194,8 +187,7 @@ const Landing = () => {
         })}
       </div>
 
-      <ModalVideo item={selectedVideo} onClose={() => setSelectedVideo(null)} />
-      <ModalImage item={selectedImage} onClose={() => setSelectedImage(null)} />
+      <Modal item={selectedVideo} onClose={() => setSelected(null)} />
     </div>
   );
 };
