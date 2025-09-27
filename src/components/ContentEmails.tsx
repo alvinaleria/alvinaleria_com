@@ -157,9 +157,6 @@ const ContentEmails: React.FC<ThumbnailContentProps> = ({ setSelectedImage })  =
     <section className="px-4 py-8 max-w-7xl mx-auto">
       <div className="text-center mb-4">
         <h1 className="font-arvo text-black text-3xl md:text-4xl font-bold mb-2">Email Template</h1>
-        <p className="font-roboto text-gray-800 text-lg">
-          Email coding is a lost art that requires a delicate balance between the knowledge of legacy browser and devices and modern innovation. Here are a few I have coded for various all-in-one marketing platforms out in the market now.
-        </p>
       </div>
 
       <div className="flex justify-center gap-4">

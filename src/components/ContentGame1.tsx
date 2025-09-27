@@ -1,6 +1,18 @@
 import React from 'react';
 import frameImage from '../assets/frame.png';
 
+type VideoThumbItem = {
+  id: number;
+  title: string;
+  description: string;
+  videoUrl: string;
+  thumbnail: string;
+};
+
+type ThumbnailContentProps = {
+  setSelectedVideo: (item: VideoThumbItem | null) => void;
+};
+
 const content = [
   {
     id: 1,
@@ -11,14 +23,20 @@ const content = [
   },
 ];
 
-const ContentGame1 = () => {
+const ContentGame1 : React.FC<ThumbnailContentProps> = ({ setSelectedVideo }) => {
   const { title, videoUrl } = content[0];
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen p-8 text-center">
-      <h1 className="font-arvo text-4xl md:text-6xl font-bold -mb-3 md:-mb-6 text-shadow-[5px_5px_0_black,-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black]">{title}</h1>
+      <h1 
+        className="font-arvo text-4xl md:text-6xl font-bold -mb-3 md:-mb-6 text-shadow-[5px_5px_0_black,-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black] cursor-pointer"
+        onClick={() => setSelectedVideo(content[0])}
+      >{title}</h1>
 
-      <div className="relative w-full md:w-1/2 aspect-video flex justify-center items-center">
+      <div 
+        className="relative w-full md:w-1/2 aspect-video flex justify-center items-center cursor-pointer"
+        onClick={() => setSelectedVideo(content[0])}
+      >
         <video
           className="absolute mt-1 mr-5 w-3xs md:w-2xl h-3xs md:h-2xl object-cover "
           autoPlay
@@ -41,3 +59,4 @@ const ContentGame1 = () => {
 };
 
 export default ContentGame1;
+export type { VideoThumbItem };

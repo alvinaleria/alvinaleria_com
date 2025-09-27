@@ -116,7 +116,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
             exit="exit"
           >
             <motion.div
-              className="relative md:left-[250px] bg-[#233445] rounded-md shadow-lg w-[63%] md:w-[525px] min-h-[400px] md:min-h-[550px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
+              className="relative md:left-[250px] bg-[#233445] rounded-md shadow-lg w-[63%] md:w-[525px] min-h-[450px] md:min-h-[550px] p-6 md:p-8 overflow-visible flex flex-col md:flex-row items-center justify-center md:items-center md:justify-center mx-4 md:mx-0"
               variants={modalVariants}
               initial="hidden"
               animate="visible"
@@ -130,7 +130,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
               </button>
 
               <div
-                className="cursor-pointer w-[130%] md:w-[240%] md:-ml-[120%] z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
+                className="cursor-pointer w-[130%] md:w-[240%] md:-ml-[120%] -mt-10 md:-mt-0 z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
                 onClick={handleFullscreen}
               >
                 <video
@@ -154,7 +154,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
 
               <div className="w-full md:w-[60%] flex grow flex-col justify-between pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
                 <h2 className="-mt-6 md:-mt-0 font-arvo text-2xl md:text-3xl text-white font-bold mb-4">{item?.title}</h2>
-                <p className="-mb-10 md:-mb-0 font-roboto text-sm text-white">{item?.description}</p>
+                <p className="-mb-3 md:-mb-0 font-roboto text-sm text-white">{item?.description}</p>
               </div>
             </motion.div>
           </motion.div>

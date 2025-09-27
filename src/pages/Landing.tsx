@@ -27,10 +27,10 @@ const extraItems = (
   <ContentBanners setSelectedVideo={setSelectedVideo} />,
   <ContentVideos setSelectedVideo={setSelectedVideo} />,
   <ContentEmails setSelectedImage={setSelectedImage} />,
-  <ContentMaestro />,
-  <ContentGame1 />,
-  <ContentGame2 />,
-  <ContentLego />,
+  <ContentMaestro setSelectedVideo={setSelectedVideo} />,
+  <ContentGame1 setSelectedVideo={setSelectedVideo} />,
+  <ContentGame2 setSelectedVideo={setSelectedVideo} />,
+  <ContentLego setSelectedVideo={setSelectedVideo} />,
 ];
 
 
@@ -124,12 +124,6 @@ const Landing = () => {
         return <ContentIntro />;
       case "works":
         return <ContentWorks />;
-      case "banner":
-        return <ContentBanners setSelectedVideo={setSelectedVideo} />;
-      case "videos":
-        return <ContentVideos setSelectedVideo={setSelectedVideo} />;
-      case "emails":
-        return <ContentEmails setSelectedImage={setSelectedImage} />;
       default:
         return <div className="p-8 text-white text-2xl">{type}</div>;
     }
