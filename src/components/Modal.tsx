@@ -128,6 +128,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
 
               <div
                 className="cursor-pointer w-[130%] md:w-[240%] md:-ml-[120%] -mt-10 md:-mt-0 z-40 flex justify-center items-center md:relative absolute left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0"
+                onClick={handleFullscreen}
               >
                 <video
                   ref={videoRef}
@@ -149,7 +150,6 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   onClick={handleFullscreen}
                 />
               </div>
-
 
               <div className="pointer-events-none w-full md:w-[60%] flex grow flex-col justify-between pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
                 <h2 className="-mt-6 md:-mt-0 font-arvo text-2xl md:text-3xl text-white font-bold mb-4">{item?.title}</h2>
