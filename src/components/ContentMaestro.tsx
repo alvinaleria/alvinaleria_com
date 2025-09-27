@@ -1,4 +1,5 @@
 import React from 'react';
+import frameImage from '../assets/frame.png';
 
 const content = [
   {
@@ -15,15 +16,25 @@ const ContentMaestro = () => {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen p-8 text-center">
-      <h1 className="text-4xl md:text-6xl font-bold mb-12">{title}</h1>
+      <h1 className="font-arvo text-4xl md:text-6xl font-bold -mb-3 md:-mb-6 text-shadow-[5px_5px_0_black,-1px_-1px_0_black,1px_-1px_0_black,-1px_1px_0_black]">{title}</h1>
 
-      <div className="w-full md:w-1/2 aspect-video">
+      <div className="relative w-full md:w-1/2 aspect-video flex justify-center items-center">
         <video
-          className="w-full h-full object-cover rounded-lg shadow-md"
-          controls
+          className="absolute mt-1 mr-5 w-3xs md:w-2xl h-3xs md:h-2xl object-cover "
+          autoPlay
+          muted
+          loop
+          controls={false}
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
+        <img
+            src={frameImage.src}
+            alt="Frame"
+            width="100%"
+            height="100%"
+            className="absolute w-full h-full"
+          />
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ const thumbnails = [
     description: "A dynamic landing page with animations and scroll effects.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image1.png",
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image1.png",
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
   {
     id: 5,
@@ -55,7 +55,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
   {
     id: 6,
@@ -63,7 +63,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image1.png",
   },
   {
     id: 7,
@@ -71,7 +71,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
   {
     id: 8,
@@ -79,7 +79,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image1.png",
   },
   {
     id: 9,
@@ -87,7 +87,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
   {
     id: 10,
@@ -95,7 +95,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image1.png",
   },
   {
     id: 11,
@@ -103,7 +103,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
   {
     id: 12,
@@ -111,7 +111,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image1.png",
   },
   {
     id: 13,
@@ -119,7 +119,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
   {
     id: 14,
@@ -127,7 +127,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image1.png",
   },
   {
     id: 15,
@@ -135,7 +135,7 @@ const thumbnails = [
     description: "Responsive email templates for a product launch.",
     desktopImg: "image1.png",
     mobileImg: "image2.png",
-    thumbnail: "images/apple_news1_starbucks.jpg",
+    thumbnail: "image2.png",
   },
 ];
 
@@ -150,7 +150,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 const ContentEmails: React.FC<ThumbnailContentProps> = ({ setSelectedImage })  => {
-  const limit = isMobile ? 8 : 15;
+  const limit = isMobile ? 2 : 5;
   const shuffledThumbnails = shuffleArray(thumbnails).slice(0, limit);
 
   return (
@@ -162,18 +162,17 @@ const ContentEmails: React.FC<ThumbnailContentProps> = ({ setSelectedImage })  =
         </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="flex justify-center gap-4">
         {shuffledThumbnails.map((thumb) => (
           <div
-              key={thumb.id}
-              className="w-[8%] md:w-[86%] mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
-              onClick={() => setSelectedImage(thumb)}
-            >
-
+            key={thumb.id}
+            className="w-32 md:w-40 mx-auto rounded shadow hover:shadow-lg transition cursor-pointer"
+            onClick={() => setSelectedImage(thumb)}
+          >
             <img
               src={`/${thumb.thumbnail}`}
               alt={thumb.title}
-              className="w-full h-auto object-cover rounded"
+              className="w-full max-h-150 object-cover object-top ounded"
             />
           </div>
         ))}

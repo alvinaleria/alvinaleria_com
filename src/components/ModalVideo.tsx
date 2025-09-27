@@ -138,6 +138,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   src={item?.videoUrl}
                   autoPlay
                   muted
+                  controls={false}
                   className="w-full h-full -ml-[15px] md:-ml-[45px] object-cover rounded-lg transform origin-center scale-72"
                 />
                 <img
