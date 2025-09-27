@@ -151,7 +151,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
               </div>
 
 
-              <div className="w-full md:w-[60%] flex grow flex-col justify-between pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
+              <div className="pointer-events-none w-full md:w-[60%] flex grow flex-col justify-between pl-0 md:pl-6 z-50 text-center md:text-left mt-6 md:mt-0">
                 <h2 className="-mt-6 md:-mt-0 font-arvo text-2xl md:text-3xl text-white font-bold mb-4">{item?.title}</h2>
                 <p className="-mb-3 md:-mb-0 font-roboto text-sm text-white">{item?.description}</p>
               </div>
