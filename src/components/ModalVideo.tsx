@@ -133,10 +133,9 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                 <video
                   ref={videoRef}
                   src={item?.videoUrl}
-                  autoPlay={!isMobile}
+                  autoPlay
                   muted
                   loop
-                  playsInline
                   controls={isMobile}
                   className="-ml-[15px] md:-ml-[45px] object-cover w-3xs md:w-150"
                 />
@@ -145,7 +144,7 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
                   alt="Frame"
                   width="100%"
                   height="100%"
-                  className="absolute "
+                  className="absolute pointer-events-none"
                   
                 />
               </div>
