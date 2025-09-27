@@ -43,6 +43,7 @@ const ContentGame2 : React.FC<ThumbnailContentProps> = ({ setSelected }) => {
           autoPlay
           muted
           loop
+          playsInline
           controls={false}
         >
           <source src={videoUrl} type="video/mp4" />
