@@ -143,7 +143,7 @@ const handleFullscreen = (e: React.MouseEvent) => {
                   muted
                   loop
                   controls={isMobile}
-                  className="-ml-[15px] md:-ml-[45px] object-cover w-3xs md:w-150"
+                  className="absolute -ml-[15px] md:-ml-[45px] w-3xs md:w-150"
                   onClick={handleFullscreen}
                 />
                 <img
@@ -151,7 +151,7 @@ const handleFullscreen = (e: React.MouseEvent) => {
                   alt="Frame"
                   width="100%"
                   height="100%"
-                  className="absolute"
+                  className="absolute pointer-events-none"
                   onClick={handleFullscreen}
                 />
               </div>
