@@ -69,16 +69,22 @@ const ModalVideo: React.FC<ModalProps> = ({ item, onClose }) => {
     }, overlayColors.length * 300 + 500);
   };
 
-  const handleFullscreen = (e: React.MouseEvent) => {
+const handleFullscreen = (e: React.MouseEvent) => {
+  e.stopPropagation();
 
-    e.stopPropagation(); // Prevent bubbling
-    if (videoRef.current) {
-      const video = videoRef.current;
-      if (document.fullscreenElement) return; // Already fullscreen
-      video.requestFullscreen?.();
-    }
-    
-  };
+  const video = videoRef.current;
+  if (!video) return;
+
+  if (document.fullscreenElement) return;
+
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if ((video as any).webkitRequestFullscreen) {
+    (video as any).webkitRequestFullscreen();
+  } else if ((video as any).msRequestFullscreen) {
+    (video as any).msRequestFullscreen();
+  }
+};
 
   return (
     <AnimatePresence>
